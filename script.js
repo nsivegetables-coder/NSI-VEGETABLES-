@@ -7,6 +7,8 @@ let products = [];
 fetch(sheetURL)
 .then(res => res.json())
 .then(data => {
+  
+  console.log(data);
 
   products = data.map(item => ({
         name: item["name"],
