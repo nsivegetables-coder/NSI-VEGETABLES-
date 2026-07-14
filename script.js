@@ -75,11 +75,10 @@ ${qtyText(p.qty)}
 
 });
 
-document.getElementById("products").innerHTML = html;
+document.getElementById("products").innerHTML = html;{}
 
 cart();
 
-function change(i,v){
 
     products[i].qty += 0.25 * v;
 
