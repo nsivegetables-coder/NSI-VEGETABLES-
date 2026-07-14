@@ -10,12 +10,12 @@ fetch(sheetURL)
 .then(response => response.json())
 .then(data => {
 
-    products = data.map(item => ({
-            name: item.name,
-                    price: Number(item["offer price"]),
-                            regular: Number(item["regular price"]),
-                                    qty: 0
-                                        }));
+ products = data.map(item => ({
+        name: item["name"],
+            price: Number(item["offer price"] || item.offer_price || item.offerprice),
+                regular: Number(item["regular price"] || item.regular_price || item.regularprice),
+                    qty: 0
+                    }));
 
                                             showProducts();
 
