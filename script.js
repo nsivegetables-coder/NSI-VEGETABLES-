@@ -1,47 +1,18 @@
-const products = [
-    {
-    name:"🥔 Potato",
-    price:25,
-    image:"https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=500"
-    },
-    {
-    name:"🍅 Tomato",
-    price:30,
-    image:"https://images.unsplash.com/photo-1542838132-92c53300491e?w=500"
-    },
-    {
-    name:"🧅 Onion",
-    price:40,
-    image:"https://images.unsplash.com/photo-1508747703725-719777637510?w=500"
-    }
-    ];
+let products = [];
 
-    let html = "";
+fetch("https://script.google.com/macros/s/AKfycbyg9RmH2iFblNzWNBBL7J4SR-W003CQnDju8RPoPBINF_cD6Fdidkn7h9QLvMsL8u4z/exec")
+  .then(response => response.json())
+    .then(data => {
+        products = data.map(item => ({
+              name: item.name,
+                    price: Number(item["offer price"]),
+                          regular: Number(item["regular price"]),
+                                qty: 0
+                                    }));
 
-    products.forEach(item => {
-
-    html += `
-    <div class="col-md-4 col-6">
-
-    <div class="card">
-
-    <img src="${item.image}" class="card-img-top">
-
-    <div class="card-body">
-
-    <h5>${item.name}</h5>
-
-    <p class="price">₹${item.price}/kg</p>
-
-    <button class="add-btn">
-    Add to Cart
-    </button>
-
-    </div>
-
-    </div>
-
-    </div>
-    `;
-
-    });
+                                        showProducts();
+                                          })
+                                            .catch(err => {
+                                                console.log(err);
+                                                    alert("Google Sheet-ൽ നിന്ന് ഡാറ്റ ലഭിച്ചില്ല");
+                                                      });
