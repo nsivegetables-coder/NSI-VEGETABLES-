@@ -5,137 +5,145 @@ const sheetURL = "https://script.google.com/macros/s/AKfycbyg9RmH2iFblNzWNBBL7J4
 let products = [];
 
 fetch(sheetURL)
-.then(res => res.json())
+.then(response => response.json())
 .then(data => {
-  
-  console.log(data);
 
-  products = data.map(item => ({
-        name: item["name"],
-            regular: Number(item["regular price"]),
-                price: Number(item["offer price"]),
-                    qty: 0
-                    }));
+products = data.map(item => ({
+name: item["name"] || "",
+regular: Number(item["regular price"] || 0),
+price: Number(item["offer price"] || 0),
+qty: 0
+}));
 
-                    showProducts();
-  }))
+showProducts();
 
-                      })
-                      .catch(err=>{
-                        console.log(err);
-                          alert("Google Sheet Connect Failed");
-                          });
+})
+.catch(error => {
+console.log(error);
+alert("Google Sheet Connect Failed");
+});
 
-                          function showProducts(){
+function qtyText(q){
 
-                            let html="";
+if(q==0) return "0";
 
-                              products.forEach((p,i)=>{
+if(q<1){
+return (q*1000)+"g";
+}
 
-                                  let qtyText="0";
+return q+"kg";
 
-                                      if(p.qty>0){
-                                            qtyText = p.qty<1 ? (p.qty*1000)+"g" : p.qty+"kg";
-                                                }
+}
 
-                                                    html+=`
-                                                        <div class="card">
+function showProducts(){
 
-                                                              <div>
-                                                                      <b>${p.name}</b><br>
+let html="";
 
-                                                                              <span style="text-decoration:line-through;color:gray">
-                                                                                      ₹${p.regular}
-                                                                                              </span>
+products.forEach((p,i)=>{
 
-                                                                                                      <b style="color:green">
-                                                                                                              ₹${p.price}/kg
-                                                                                                                      </b>
-                                                                                                                            </div>
+html += `
+<div class="card">
 
-                                                                                                                                  <div>
+<div>
 
-                                                                                                                                          <button onclick="change(${i},-1)">-</button>
+<b>${p.name}</b><br>
 
-                                                                                                                                                  <b style="padding:0 10px">${qtyText}</b>
+<span style="text-decoration:line-through;color:gray">
+₹${p.regular}
+</span>
 
-                                                                                                                                                          <button onclick="change(${i},1)">+</button>
+<b style="color:green">
+₹${p.price}/kg
+</b>
 
-                                                                                                                                                                </div>
+</div>
 
-                                                                                                                                                                    </div>
-                                                                                                                                                                        `;
-                                                                                                                                                                          });
+<div>
 
-                                                                                                                                                                            document.getElementById("products").innerHTML=html;
+<button onclick="change(${i},-1)">-</button>
 
-                                                                                                                                                                              cart();
+<b style="padding:0 10px">
+${qtyText(p.qty)}
+</b>
 
-                                                                                                                                                                              }
+<button onclick="change(${i},1)">+</button>
 
-                                                                                                                                                                              function change(i,v){
+</div>
 
-                                                                                                                                                                                products[i].qty += 0.25*v;
+</div>
+`;
 
-                                                                                                                                                                                  if(products[i].qty<0) products[i].qty=0;
+});
 
-                                                                                                                                                                                    if(products[i].qty>10) products[i].qty=10;
+document.getElementById("products").innerHTML = html;
 
-                                                                                                                                                                                      products[i].qty=Number(products[i].qty.toFixed(2));
+cart();
 
-                                                                                                                                                                                        showProducts();
+function change(i,v){
 
-                                                                                                                                                                                        }
+    products[i].qty += 0.25 * v;
 
-                                                                                                                                                                                        function cart(){
+    if(products[i].qty < 0){
+    products[i].qty = 0;
+    }
 
-                                                                                                                                                                                          let html="";
-                                                                                                                                                                                            let total=0;
+    if(products[i].qty > 10){
+    products[i].qty = 10;
+    }
 
-                                                                                                                                                                                              products.forEach(p=>{
+    products[i].qty = Number(products[i].qty.toFixed(2));
 
-                                                                                                                                                                                                  if(p.qty>0){
+    showProducts();
 
-                                                                                                                                                                                                        let qtyText=p.qty<1 ? (p.qty*1000)+"g" : p.qty+"kg";
+    }
 
-                                                                                                                                                                                                              html+=`${p.name} - ${qtyText}<br>`;
+    function cart(){
 
-                                                                                                                                                                                                                    total+=p.qty*p.price;
+    let html = "";
 
-                                                                                                                                                                                                                        }
+    let total = 0;
 
-                                                                                                                                                                                                                          });
+    products.forEach(p=>{
 
-                                                                                                                                                                                                                            document.getElementById("cartItems").innerHTML=html || "Cart Empty";
+    if(p.qty>0){
 
-                                                                                                                                                                                                                              document.getElementById("total").innerHTML=total.toFixed(2);
+    html += `${p.name} - ${qtyText(p.qty)}<br>`;
 
-                                                                                                                                                                                                                              }
+    total += p.qty * p.price;
 
-                                                                                                                                                                                                                              function sendOrder(){
+    }
 
-                                                                                                                                                                                                                                let msg="*NSI VEGETABLES ORDER*%0A%0A";
+    });
 
-                                                                                                                                                                                                                                  products.forEach(p=>{
+    document.getElementById("cartItems").innerHTML = html || "Cart Empty";
 
-                                                                                                                                                                                                                                      if(p.qty>0){
+    document.getElementById("total").innerHTML = total.toFixed(2);
 
-                                                                                                                                                                                                                                            let qtyText=p.qty<1 ? (p.qty*1000)+"g" : p.qty+"kg";
+    }
 
-                                                                                                                                                                                                                                                  msg+=`${p.name} - ${qtyText}%0A`;
+    function sendOrder(){
 
-                                                                                                                                                                                                                                                      }
+    let msg = "*🥬 NSI VEGETABLES ORDER*%0A%0A";
 
-                                                                                                                                                                                                                                                        });
+    products.forEach(p=>{
 
-                                                                                                                                                                                                                                                          msg+=`%0ATotal : ₹${document.getElementById("total").innerHTML}`;
+    if(p.qty>0){
 
-                                                                                                                                                                                                                                                            msg+=`%0A%0AName : ${document.getElementById("name").value}`;
+    msg += `${p.name} - ${qtyText(p.qty)}%0A`;
 
-                                                                                                                                                                                                                                                              msg+=`%0APhone : ${document.getElementById("phone").value}`;
+    }
 
-                                                                                                                                                                                                                                                                msg+=`%0AAddress : ${document.getElementById("address").value}`;
+    });
 
-                                                                                                                                                                                                                                                                  window.open(`https://wa.me/${phone}?text=${msg}`);
+    msg += `%0ATotal : ₹${document.getElementById("total").innerHTML}`;
 
-                                                                                                                                                                                                                                                                  }
+    msg += `%0A%0AName : ${document.getElementById("name").value}`;
+
+    msg += `%0APhone : ${document.getElementById("phone").value}`;
+
+    msg += `%0AAddress : ${document.getElementById("address").value}`;
+
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(decodeURIComponent(msg))}`);
+
+    }
+}
