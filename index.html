@@ -71,7 +71,7 @@ html+=`
 
 <button onclick="change(${i},-1)">-</button>
 
-<b>${p.qty}</b>
+<b>${p.qty==0 ? "0" : (p.qty<1 ? (p.qty*1000)+"g" : p.qty+"kg")}</b>
 
 <button onclick="change(${i},1)">+</button>
 
@@ -90,9 +90,21 @@ cart();
 
 function change(i,v){
 
-products[i].qty=Math.max(0,products[i].qty+v);
+products[i].qty += (0.25 * v);
 
-showProducts();
+if(products[i].qty < 0){
+    products[i].qty = 0;
+    }
+
+    if(products[i].qty > 10){
+        products[i].qty = 10;
+        }
+
+        products[i].qty = Number(products[i].qty.toFixed(2));
+
+        showProducts();
+
+        }
 
 }
 
@@ -105,7 +117,8 @@ products.forEach(p=>{
 
 if(p.qty>0){
 
-html+=`${p.name} × ${p.qty}<br>`;
+let qtyText = p.qty<1 ? (p.qty*1000)+"g" : p.qty+"kg";
+html+=`${p.name} × ${qtyText}<br>`;
 
 total+=p.qty*p.price;
 
