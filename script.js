@@ -45,6 +45,3 @@ const products = [
     `;
 
     });
-
-    document.getElementById("products").innerHTML = html;
-]
