@@ -9,13 +9,14 @@ fetch(sheetURL)
 .then(data => {
 
   products = data.map(item => ({
-      name: item["name"],
-          regular: Number(item["regular price"]),
-              price: Number(item["offer price"]),
-                  qty: 0
+        name: item["name"],
+            regular: Number(item["regular price"]),
+                price: Number(item["offer price"]),
+                    qty: 0
                     }));
 
-                      showProducts();
+                    showProducts();
+  }))
 
                       })
                       .catch(err=>{
