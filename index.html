@@ -18,10 +18,11 @@
             font-family: 'Poppins', sans-serif;
             background-color: #f0f2f5;
             margin: 0;
-            padding: 15px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            box-sizing: border-box;
         }
 
         .control-panel {
@@ -59,30 +60,27 @@
         .posters-container {
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 30px;
             width: 100%;
             align-items: center;
         }
 
-        /* 🖼️ ഒറിജിനൽ ലുക്കിലുള്ള ഓരോ പോസ്റ്റർ ബോക്സും */
         .poster-card {
             width: 100%;
             max-width: 440px;
             background: #ffffff;
-            border: 6px solid var(--nsi-green);
-            border-radius: 24px;
+            border: 5px solid var(--nsi-green);
+            border-radius: 20px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             overflow: hidden;
-            margin-bottom: 10px;
         }
 
-        /* ഹെഡ്ഡർ ഡിസൈൻ */
         .poster-header {
             background: white;
-            padding: 18px 15px 8px 15px;
+            padding: 15px 10px 8px 10px;
             text-align: center;
             border-bottom: 2px solid var(--nsi-light-bg);
         }
@@ -91,16 +89,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .logo-circle {
             background: var(--nsi-green);
             color: white;
             font-weight: 800;
-            font-size: 26px;
-            width: 55px;
-            height: 55px;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -110,38 +108,37 @@
 
         .logo-titles h1 {
             margin: 0;
-            font-size: 22px;
+            font-size: 20px;
             color: var(--nsi-green);
             font-weight: 800;
             line-height: 1;
         }
 
         .logo-titles span {
-            font-size: 9px;
+            font-size: 8.5px;
             color: #444;
             font-weight: 700;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.5px;
             display: block;
             margin-top: 2px;
         }
 
         .banner-tagline {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: var(--text-dark);
-            margin: 6px 0;
+            margin: 5px 0;
         }
 
         .title-badge {
             background: #fff;
             border: 2px solid var(--nsi-green);
             color: var(--nsi-green);
-            padding: 3px 30px;
+            padding: 2px 25px;
             border-radius: 30px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 800;
             display: inline-block;
-            letter-spacing: 0.5px;
         }
 
         .meta-info {
@@ -154,40 +151,44 @@
             font-weight: 700;
         }
 
-        /* 📋 രണ്ട് കോളം ഗ്രിഡ് ലേഔട്ട് */
+        /* 📋 റെസ്പോൺസീവ് ഗ്രിഡ് ലേഔട്ട് */
         .items-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            padding: 15px;
+            gap: 6px;
+            padding: 10px;
             background: #fff;
+            box-sizing: border-box;
         }
 
+        /* 🛠️ ബോക്സ് വെളിയിലേക്ക് പോകാതിരിക്കാൻ വീതിയും പാഡിങ്ങും ക്രമീകരിച്ചു */
         .grid-box {
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 10px 12px;
+            border-radius: 10px;
+            padding: 6px 8px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             background: var(--nsi-light-bg);
             box-sizing: border-box;
-            height: 48px;
+            height: 46px;
+            min-width: 0; /* ഫ്ലെക്സ് ബോക്സ് വെളിയിലേക്ക് തള്ളുന്നത് തടയാൻ */
         }
 
         .box-left {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             overflow: hidden;
+            min-width: 0;
         }
 
         .box-num {
-            font-size: 11px;
+            font-size: 10px;
             background: var(--nsi-green);
             color: white;
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -197,7 +198,7 @@
         }
 
         .box-title {
-            font-size: 14px;
+            font-size: 12.5px;
             font-weight: 700;
             color: var(--text-dark);
             white-space: nowrap;
@@ -209,14 +210,15 @@
             text-align: center;
             background: var(--price-bg);
             color: white;
-            padding: 4px 10px;
-            border-radius: 6px;
-            min-width: 50px;
+            padding: 3px 6px;
+            border-radius: 5px;
+            min-width: 44px;
             flex-shrink: 0;
+            box-sizing: border-box;
         }
 
         .tag-unit {
-            font-size: 8px;
+            font-size: 7.5px;
             display: block;
             opacity: 0.9;
             line-height: 1;
@@ -225,68 +227,58 @@
         }
 
         .tag-amount {
-            font-size: 13.5px;
+            font-size: 12.5px;
             font-weight: 700;
             line-height: 1;
             display: block;
         }
 
-        /* ഫൂട്ടർ ഡിസൈൻ */
         .poster-footer {
             background: white;
             border-top: 2px solid var(--nsi-light-bg);
-            padding: 12px;
+            padding: 10px;
             text-align: center;
             margin-top: auto;
         }
 
         .footer-banner-wa {
             background: #fff9eb;
-            padding: 8px;
-            border-radius: 10px;
+            padding: 6px;
+            border-radius: 8px;
             border: 1px dashed #e67e22;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: #333;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .footer-banner-wa b {
             color: var(--nsi-green);
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .delivery-badges-row {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin-bottom: 10px;
+            gap: 6px;
+            margin-bottom: 8px;
         }
 
-        .badge-green {
-            background: #d4efdf;
-            color: #196f3d;
-            font-size: 9px;
+        .badge-green, .badge-blue {
+            font-size: 8.5px;
             font-weight: 700;
-            padding: 3px 10px;
+            padding: 3px 8px;
             border-radius: 20px;
         }
-
-        .badge-blue {
-            background: #d6eaf8;
-            color: #21618c;
-            font-size: 9px;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 20px;
-        }
+        .badge-green { background: #d4efdf; color: #196f3d; }
+        .badge-blue { background: #d6eaf8; color: #21618c; }
 
         .guarantee-row {
-            font-size: 10px;
+            font-size: 9.5px;
             font-weight: 600;
             color: #7f8c8d;
             border-top: 1px solid #f1f5f9;
-            padding-top: 8px;
+            padding-top: 6px;
             display: flex;
             justify-content: space-around;
         }
@@ -302,7 +294,6 @@
             width: 100%;
             box-sizing: border-box;
         }
-
         textarea { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ccc; background: #fafafa; font-family: inherit; font-size: 13px; box-sizing: border-box; }
         .btn-copy-text { width: 100%; background: #2c3e50; color: white; border: none; padding: 12px; border-radius: 10px; margin-top: 8px; font-weight: 600; cursor: pointer; }
     </style>
@@ -329,7 +320,6 @@
     const sheetAppUrl = "https://script.google.com/macros/s/AKfycbyg9RmH2iFblNzWNBBL7J4SR-W003CQnDju8RPoPBINF_cD6Fdidkn7h9QLvMsL8u4z/exec";
     const shopWebsiteUrl = "https://nsivegetables-coder.github.io/nsi-vegetables-pattambi/";
 
-    // ഇമോജി ലിസ്റ്റ് 
     const emojiDictionary = {
         "തക്കാളി": "🍅", "Tomato": "🍅",
         "സവാള": "🧅", "ഉള്ളി": "🧅", "ചെറിയ ഉള്ളി": "🧅", "Onion": "🧅",
@@ -339,7 +329,7 @@
         "മത്തൻ": "🎃", "Pumpkin": "🎃",
         "കുമ്പളങ്ങ": "🍈", "ചേന": "🥔", "ചേമ്പ്": "🥔",
         "വെള്ളരിക്ക": "🥒", "Cucumber": "🥒",
-        "காரറ്റ്": "🥕", "Carrot": "🥕",
+        "കാരറ്റ്": "🥕", "Carrot": "🥕",
         "മുരിങ്ങക്കായ": "🌿", "പച്ചക്കായ": "🍌", "നേന്ത്രക്കായ": "🍌",
         "പടവലങ്ങ": "🥒", "ചിരങ്ങ": "🍈", "വഴുതനങ്ങ": "🍆", "ബീറ്റ്‌റൂട്ട്": "🍠",
         "മല്ലിചെപ്പ്": "🌿", "കറിവേപ്പില": "🍃", "പൊതീന": "🌱", "ഇഞ്ചി": "🫚", "വെളുത്തുള്ളി": "🧄"
@@ -388,7 +378,7 @@
                 }
 
                 const currentDate = new Date().toLocaleDateString('en-IN');
-                const limit = 10; // 🎯 ഒരു പോസ്റ്ററിൽ പരമാവധി 10 എണ്ണം മാത്രം
+                const limit = 10;
                 const totalPageCount = Math.ceil(cleanedItems.length / limit);
 
                 for (let page = 0; page < totalPageCount; page++) {
@@ -457,12 +447,11 @@
                     container.appendChild(posterHtml);
                     
                     let hint = document.createElement('p');
-                    hint.style.cssText = "color:#e67e22; font-weight:bold; font-size:12px; margin: 5px 0 30px 0; text-align:center;";
-                    hint.innerText = `💡 പോസ്റ്റർ ${page + 1} (10 ഇനങ്ങൾ) റെഡി! ഇതിന്റെ സ്ക്രീൻഷോട്ട് എടുക്കാം.`;
+                    hint.style.cssText = "color:#e67e22; font-weight:bold; font-size:12px; margin: 5px 0 25px 0; text-align:center;";
+                    hint.innerText = `💡 പോസ്റ്റർ ${page + 1} റെഡി! ഇതിന്റെ സ്ക്രീൻഷോട്ട് എടുക്കാം.`;
                     container.appendChild(hint);
                 }
 
-                // വാട്സാപ്പ് ടെക്സ്റ്റ് ലിസ്റ്റ്
                 let broadcastMessage = `🥬 *NSI FRESH & GREEN* 🥬\n📆 വിലവിവരപ്പട്ടിക: ${currentDate}\n\n`;
                 cleanedItems.forEach((item, idx) => {
                     broadcastMessage += `${idx + 1}. ${item.emoji} ${item.name} ➔ *₹${item.price}/kg*\n`;
