@@ -55,6 +55,7 @@
             color: #666;
             font-weight: 500;
             margin: 15px 0;
+            font-size: 14px;
         }
 
         .posters-container {
@@ -151,7 +152,6 @@
             font-weight: 700;
         }
 
-        /* 📋 റെസ്പോൺസീവ് ഗ്രിഡ് ലേഔട്ട് */
         .items-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -161,7 +161,6 @@
             box-sizing: border-box;
         }
 
-        /* 🛠️ ബോക്സ് വെളിയിലേക്ക് പോകാതിരിക്കാൻ വീതിയും പാഡിങ്ങും ക്രമീകരിച്ചു */
         .grid-box {
             border: 1px solid var(--border-color);
             border-radius: 10px;
@@ -172,7 +171,7 @@
             background: var(--nsi-light-bg);
             box-sizing: border-box;
             height: 46px;
-            min-width: 0; /* ഫ്ലെക്സ് ബോക്സ് വെളിയിലേക്ക് തള്ളുന്നത് തടയാൻ */
+            min-width: 0;
         }
 
         .box-left {
@@ -329,7 +328,7 @@
         "മത്തൻ": "🎃", "Pumpkin": "🎃",
         "കുമ്പളങ്ങ": "🍈", "ചേന": "🥔", "ചേമ്പ്": "🥔",
         "വെള്ളരിക്ക": "🥒", "Cucumber": "🥒",
-        "കാരറ്റ്": "🥕", "Carrot": "🥕",
+        "காரറ്റ്": "🥕", "Carrot": "🥕",
         "മുരിങ്ങക്കായ": "🌿", "പച്ചക്കായ": "🍌", "നേന്ത്രക്കായ": "🍌",
         "പടവലങ്ങ": "🥒", "ചിരങ്ങ": "🍈", "വഴുതനങ്ങ": "🍆", "ബീറ്റ്‌റൂട്ട്": "🍠",
         "മല്ലിചെപ്പ്": "🌿", "കറിവേപ്പില": "🍃", "പൊതീന": "🌱", "ഇഞ്ചി": "🫚", "വെളുത്തുള്ളി": "🧄"
@@ -353,11 +352,21 @@
         container.innerHTML = "";
         tCard.style.display = "none";
 
-        fetch(`${sheetAppUrl}?_=${new Date().getTime()}`)
+        // ഡാറ്റ സുഗമമായി എടുക്കാൻ കാഷെ മാറ്റി വേഗത കൂട്ടിയിട്ടുണ്ട്
+        fetch(sheetAppUrl)
             .then(res => res.json())
             .then(data => {
                 loading.style.display = "none";
-                let rawProducts = Array.isArray(data) ? data : (data.data || []);
+                
+                // നിങ്ങളുടെ ഗൂഗിൾ വെബ് ആപ്പ് നൽകുന്ന ഒറിജിനൽ അറേ മാത്രം കൃത്യമായി ഫിൽട്ടർ ചെയ്യുന്നു
+                let rawProducts = [];
+                if (Array.isArray(data)) {
+                    rawProducts = data;
+                } else if (data && Array.isArray(data.data)) {
+                    rawProducts = data.data;
+                } else if (data && typeof data === 'object') {
+                    rawProducts = Object.values(data).find(val => Array.isArray(val)) || [];
+                }
                 
                 let cleanedItems = [];
                 rawProducts.forEach(product => {
@@ -365,15 +374,17 @@
                         acc[k.toLowerCase().replace(/\s+/g, '')] = product[k];
                         return acc;
                     }, {});
-                    let name = keys['name'] || "No Name";
-                    let price = parseFloat(keys['offerprice']) || 0;
-                    if (name !== "No Name" && price > 0) {
+                    
+                    let name = keys['name'] || product['Name'] || product['name'] || "";
+                    let price = parseFloat(keys['offerprice'] || product['OfferPrice'] || product['offerPrice'] || 0);
+                    
+                    if (name && name !== "No Name" && price > 0) {
                         cleanedItems.push({ name: name, price: price, emoji: selectEmoji(name) });
                     }
                 });
 
                 if (cleanedItems.length === 0) {
-                    alert("ഷീറ്റിൽ ഡാറ്റ ഒന്നും കണ്ടെത്തിയില്ല!");
+                    alert("ഷീറ്റിൽ ഡാറ്റ ഒന്നും കണ്ടെത്താനായില്ല! ഗൂഗിൾ ഷീറ്റിലെ Name, Offer Price കോളങ്ങൾ പരിശോധിക്കുക.");
                     return;
                 }
 
@@ -462,7 +473,7 @@
             })
             .catch(error => {
                 loading.style.display = "none";
-                alert("ഡാറ്റ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല!");
+                alert("ഡാറ്റ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല! ഇന്റർനെറ്റ് കണക്ഷൻ അല്ലെങ്കിൽ ഗൂഗിൾ സ്ക്രിപ്റ്റ് യുആർഎൽ പരിശോധിക്കുക.");
                 console.error(error);
             });
     }
