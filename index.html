@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NSI Premium Multi-Poster Generator</title>
+    <title>NSI Premium Photo Poster Generator</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -64,7 +64,7 @@
             align-items: center;
         }
 
-        /* 🖼️ ഒറിജിനൽ ലുക്കിലുള്ള ഓരോ പോസ്റ്റർ ബോക്സും */
+        /* 🖼️ ഒറിജിനൽ ലുക്കിലുള്ള പോസ്റ്റർ ബോക്സ് */
         .poster-card {
             width: 100%;
             max-width: 440px;
@@ -76,7 +76,6 @@
             flex-direction: column;
             box-shadow: 0 20px 40px rgba(0,0,0,0.12);
             overflow: hidden;
-            margin-bottom: 10px;
         }
 
         /* ഹെഡ്ഡർ ഡിസൈൻ */
@@ -158,23 +157,26 @@
         .items-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 6px;
+            gap: 8px;
             padding: 12px;
             background: #fff;
         }
 
+        /* ഫോട്ടോ അടക്കമുള്ള പുതിയ വലിയ ഗ്രിഡ് ബോക്സ് */
         .grid-box {
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 8px 10px;
+            border-radius: 16px;
+            padding: 10px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
+            gap: 8px;
             background: var(--nsi-light-bg);
             box-sizing: border-box;
+            position: relative;
         }
 
-        /* 17-ാമത്തെ ഐറ്റം വരിയിൽ ഒറ്റയ്ക്ക് വരാൻ */
+        /* 17-ാമത്തെ ഐറ്റം വരിയിൽ ഒറ്റയ്ക്ക് മധ്യത്തിൽ വരാൻ */
         .grid-box.last-single-item {
             grid-column: span 2;
             max-width: 50%;
@@ -182,11 +184,12 @@
             width: 100%;
         }
 
-        .box-left {
+        .box-top-row {
             display: flex;
+            width: 100%;
             align-items: center;
-            gap: 8px;
-            overflow: hidden;
+            justify-content: flex-start;
+            gap: 6px;
         }
 
         .box-num {
@@ -204,7 +207,7 @@
         }
 
         .box-title {
-            font-size: 13px;
+            font-size: 13.5px;
             font-weight: 700;
             color: var(--text-dark);
             white-space: nowrap;
@@ -212,14 +215,27 @@
             text-overflow: ellipsis;
         }
 
+        /* 🥦 പച്ചക്കറിയുടെ യഥാർത്ഥ ചിത്രം കാണിക്കുന്ന ഭാഗം */
+        .veg-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin: 4px 0;
+        }
+
+        .box-price-row {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+        }
+
         .box-price-tag {
             text-align: center;
             background: var(--price-bg);
             color: white;
-            padding: 4px 10px;
-            border-radius: 6px;
-            min-width: 50px;
-            flex-shrink: 0;
+            padding: 4px 15px;
+            border-radius: 8px;
+            min-width: 70px;
         }
 
         .tag-unit {
@@ -227,24 +243,24 @@
             display: block;
             opacity: 0.9;
             line-height: 1;
-            margin-bottom: 1px;
+            margin-bottom: 2px;
             font-weight: 600;
         }
 
         .tag-amount {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 700;
             line-height: 1;
             display: block;
         }
 
-        /* ഫൂട്ടർ ഡിസൈൻ */
+        /* ഫൂട്ടർ డిസൈൻ */
         .poster-footer {
             background: white;
             border-top: 2px solid var(--nsi-light-bg);
             padding: 12px;
             text-align: center;
-            margin-top: auto; /* ഫൂട്ടർ എപ്പോഴും താഴെ ഉറപ്പിച്ചു നിർത്താൻ */
+            margin-top: auto;
         }
 
         .footer-banner-wa {
@@ -317,7 +333,165 @@
 <body>
 
     <div class="control-panel">
-        <h2 style="margin: 0 0 5px 0; font-size: 18px; color: var
+        <h2 style="margin: 0 0 5px 0; font-size: 18px; color: var(--nsi-green);">NSI Photo Price List</h2>
+        <p style="margin: 0 0 15px 0; font-size: 12px; color: #666;">ഫോട്ടോ ഉള്ള ഇനങ്ങൾ മാത്രം ഉൾപ്പെടുത്തിയ പ്രൈസ് ലിസ്റ്റ്.</p>
+        <button class="btn-generate" onclick="generatePhotoPosters()">📸 ഫോട്ടോ ഉള്ളവ മാത്രം നിർമ്മിക്കുക</button>
+    </div>
 
-         
-    
+    <div id="loading" class="loading-status">⏳ ഗൂഗിൾ ഷീറ്റിൽ നിന്നും വിവരങ്ങൾ ഫിൽട്ടർ ചെയ്യുന്നു...</div>
+
+    <div class="posters-container" id="posters-container"></div>
+
+    <div class="text-backup-card" id="text-card">
+        <span style="font-size: 13px; font-weight: 700; color: #444; display:block; margin-bottom: 6px;">💬 വാട്സാപ്പ് മെസ്സേജ് ടെക്സ്റ്റ് ലിസ്റ്റ്:</span>
+        <textarea id="text-area" rows="6"></textarea>
+        <button class="btn-copy-text" onclick="copyBroadcastText()">📋 ടെക്സ്റ്റ് ലിസ്റ്റ് കോപ്പി ചെയ്യുക</button>
+    </div>
+
+<script>
+    const sheetAppUrl = "https://script.google.com/macros/s/AKfycbyg9RmH2iFblNzWNBBL7J4SR-W003CQnDju8RPoPBINF_cD6Fdidkn7h9QLvMsL8u4z/exec";
+    const shopWebsiteUrl = "https://nsivegetables-coder.github.io/nsi-vegetables-pattambi/";
+
+    function generatePhotoPosters() {
+        const loading = document.getElementById("loading");
+        const container = document.getElementById("posters-container");
+        const tCard = document.getElementById("text-card");
+
+        loading.style.display = "block";
+        container.innerHTML = "";
+        tCard.style.display = "none";
+
+        fetch(`${sheetAppUrl}?_=${new Date().getTime()}`)
+            .then(res => res.json())
+            .then(data => {
+                loading.style.display = "none";
+                let rawProducts = Array.isArray(data) ? data : (data.data || []);
+                
+                let filteredPhotoItems = [];
+                rawProducts.forEach(product => {
+                    // കീസിലെ സ്പേസുകൾ ഒഴിവാക്കി ലോവർകേസ് ആക്കുന്നു
+                    const keys = Object.keys(product).reduce((acc, k) => {
+                        acc[k.toLowerCase().replace(/\s+/g, '')] = product[k];
+                        return acc;
+                    }, {});
+                    
+                    let name = keys['name'] || "No Name";
+                    let price = parseFloat(keys['offerprice']) || 0;
+                    let imageUrl = keys['image'] || keys['imageurl'] || ""; // ഷീറ്റിലെ ഇമേജ് കോളം ലിങ്ക് എടുക്കുന്നു
+
+                    // ⚠️ ഫോട്ടോ ലിങ്ക് ഉള്ളവയും വില ഉള്ളവയും മാത്രം ഫിൽട്ടർ ചെയ്ത് എടുക്കുന്നു
+                    if (name !== "No Name" && price > 0 && imageUrl.trim() !== "" && imageUrl.startsWith("http")) {
+                        filteredPhotoItems.push({ name: name, price: price, image: imageUrl });
+                    }
+                });
+
+                if (filteredPhotoItems.length === 0) {
+                    alert("ഫോട്ടോ ലിങ്ക് നൽകിയിട്ടുള്ള പച്ചക്കറികൾ ഒന്നും തന്നെ ഷീറ്റിൽ കണ്ടെത്താനായില്ല! നിങ്ങളുടെ ഷീറ്റിലെ Image കോളം പരിശോധിക്കുക.");
+                    return;
+                }
+
+                const currentDate = new Date().toLocaleDateString('en-IN');
+                const limit = 17; // ഒരു പോസ്റ്ററിൽ 17 എണ്ണം
+                const totalPageCount = Math.ceil(filteredPhotoItems.length / limit);
+
+                for (let page = 0; page < totalPageCount; page++) {
+                    const start = page * limit;
+                    const end = Math.min(start + limit, filteredPhotoItems.length);
+                    const chunk = filteredPhotoItems.slice(start, end);
+
+                    let posterHtml = document.createElement('div');
+                    posterHtml.className = 'poster-card';
+                    
+                    let gridCells = "";
+                    chunk.forEach((item, index) => {
+                        const serialNumber = start + index + 1;
+                        const checkLastOdd = (chunk.length === 17 && index === 16);
+                        const widthStyle = checkLastOdd ? "last-single-item" : "";
+
+                        gridCells += `
+                            <div class="grid-box ${widthStyle}">
+                                <div class="box-top-row">
+                                    <div class="box-num">${serialNumber}</div>
+                                    <div class="box-title">${item.name}</div>
+                                </div>
+                                <img class="veg-image" src="${item.image}" alt="${item.name}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2329/2329864.png'">
+                                <div class="box-price-row">
+                                    <div class="box-price-tag">
+                                        <span class="tag-unit">1 KG</span>
+                                        <span class="tag-amount">₹${item.price}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    posterHtml.innerHTML = `
+                        <div class="poster-header">
+                            <div class="logo-area">
+                                <div class="logo-circle">NSi</div>
+                                <div class="logo-titles">
+                                    <h1>FRESH & GREEN</h1>
+                                    <span>BEST PRICE | BEST QUALITY | BEST SERVICE</span>
+                                </div>
+                            </div>
+                            <div class="banner-tagline">പുതുമയുള്ള പച്ചക്കറികൾ നേരിട്ട് നിങ്ങളുടെ വീട്ടിലേക്ക്</div>
+                            <div class="title-badge">PRICE LIST</div>
+                            <div class="meta-info">
+                                <span>📆 Date: ${currentDate}</span>
+                                <span style="color: var(--nsi-green)">PAGE ${page + 1} of ${totalPageCount}</span>
+                            </div>
+                        </div>
+
+                        <div class="items-grid">
+                            ${gridCells}
+                        </div>
+
+                        <div class="poster-footer">
+                            <div class="footer-banner-wa">
+                                🟢 WHATSAPP വഴി ഓർഡർ ചെയ്യൂ: <b>+91 90 37 38 39 40</b>
+                            </div>
+                            <div class="delivery-badges-row">
+                                <span class="badge-green">FAST DELIVERY</span>
+                                <span class="badge-blue">FREE DELIVERY ABOVE ₹499</span>
+                            </div>
+                            <div class="guarantee-row">
+                                <span>🌱 പുതുമ നാം ഉറപ്പ്</span>
+                                <span>🧼 ശുദ്ധിയും ഗുണവും</span>
+                                <span>🤝   വിശ്വാസം വാഗ്ദാനം</span>
+                            </div>
+                        </div>
+                    `;
+
+                    container.appendChild(posterHtml);
+                    
+                    let hint = document.createElement('p');
+                    hint.style.cssText = "color:#e67e22; font-weight:bold; font-size:12px; margin: 5px 0 30px 0; text-align:center;";
+                    hint.innerText = `💡 പോസ്റ്റർ ${page + 1} റെഡി! ഇതിന്റെ സ്ക്രീൻഷോട്ട് എടുക്കാം.`;
+                    container.appendChild(hint);
+                }
+
+                // വാട്സാപ്പ് ബ്രോഡ്കാസ്റ്റ് ലിസ്റ്റ് ടെക്സ്റ്റ് നിർമ്മാണം
+                let broadcastMessage = `🥬 *NSI FRESH & GREEN* 🥬\n📆 വിലവിവരപ്പട്ടിക: ${currentDate}\n\n`;
+                filteredPhotoItems.forEach((item, idx) => {
+                    broadcastMessage += `${idx + 1}. 🥦 ${item.name} ➔ *₹${item.price}/kg*\n`;
+                });
+                broadcastMessage += `\n🛒 വെബ്സൈറ്റ് വഴി എളുപ്പത്തിൽ ഓർഡർ ചെയ്യാൻ:\n👉 ${shopWebsiteUrl}`;
+                document.getElementById("text-area").value = broadcastMessage;
+                tCard.style.display = "block";
+            })
+            .catch(error => {
+                loading.style.display = "none";
+                alert("ഡാറ്റ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല!");
+                console.error(error);
+            });
+    }
+
+    function copyBroadcastText() {
+        const area = document.getElementById("text-area");
+        area.select();
+        navigator.clipboard.writeText(area.value);
+        alert("🎉 ലിസ്റ്റ് വിജയകരമായി കോപ്പി ചെയ്തു!");
+    }
+</script>
+</body>
+</html>
