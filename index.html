@@ -1,11 +1,9 @@
-
-         
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NSI Official Fixed Size Poster</title>
+    <title>NSI Premium Multi-Poster Generator</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -61,25 +59,24 @@
         .posters-container {
             display: flex;
             flex-direction: column;
-            gap: 35px;
+            gap: 40px;
             width: 100%;
             align-items: center;
         }
 
-        /* 🖼️ ഒരു പോസ്റ്ററിന്റെ കൃത്യമായ ഫിക്സഡ് വലുപ്പം (Fixed Standard Size) */
+        /* 🖼️ ഒറിജിനൽ ലുക്കിലുള്ള ഓരോ പോസ്റ്റർ ബോക്സും */
         .poster-card {
             width: 100%;
             max-width: 440px;
-            height: 720px; /* 🔳 ഒരു പോസ്റ്ററിന്റെ വലുപ്പം എപ്പോഴും സ്ഥിരമായി നിർത്തുന്നു */
             background: #ffffff;
             border: 6px solid var(--nsi-green);
             border-radius: 24px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* ഉള്ളടക്കം മുകളിലും താഴെയുമായി തുല്യമായി നിൽക്കും */
             box-shadow: 0 20px 40px rgba(0,0,0,0.12);
             overflow: hidden;
+            margin-bottom: 10px;
         }
 
         /* ഹെഡ്ഡർ ഡിസൈൻ */
@@ -157,10 +154,170 @@
             font-weight: 700;
         }
 
-        /* 📋 ഫിക്സഡ് ഗ്രിഡ് ലേഔട്ട് (എപ്പോഴും കൃത്യമായി ഒരേ അളവിൽ വരാൻ) */
+        /* 📋 രണ്ട് കോളം ഗ്രിഡ് ലേഔട്ട് */
         .items-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 6px;
-            padding: 10px;
-            background
+            padding: 12px;
+            background: #fff;
+        }
+
+        .grid-box {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 8px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--nsi-light-bg);
+            box-sizing: border-box;
+        }
+
+        /* 17-ാമത്തെ ഐറ്റം വരിയിൽ ഒറ്റയ്ക്ക് വരാൻ */
+        .grid-box.last-single-item {
+            grid-column: span 2;
+            max-width: 50%;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .box-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            overflow: hidden;
+        }
+
+        .box-num {
+            font-size: 11px;
+            background: var(--nsi-green);
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .box-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .box-price-tag {
+            text-align: center;
+            background: var(--price-bg);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            min-width: 50px;
+            flex-shrink: 0;
+        }
+
+        .tag-unit {
+            font-size: 8px;
+            display: block;
+            opacity: 0.9;
+            line-height: 1;
+            margin-bottom: 1px;
+            font-weight: 600;
+        }
+
+        .tag-amount {
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1;
+            display: block;
+        }
+
+        /* ഫൂട്ടർ ഡിസൈൻ */
+        .poster-footer {
+            background: white;
+            border-top: 2px solid var(--nsi-light-bg);
+            padding: 12px;
+            text-align: center;
+            margin-top: auto; /* ഫൂട്ടർ എപ്പോഴും താഴെ ഉറപ്പിച്ചു നിർത്താൻ */
+        }
+
+        .footer-banner-wa {
+            background: #fff9eb;
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px dashed #e67e22;
+            font-size: 12px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .footer-banner-wa b {
+            color: var(--nsi-green);
+            font-size: 14px;
+        }
+
+        .delivery-badges-row {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .badge-green {
+            background: #d4efdf;
+            color: #196f3d;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .badge-blue {
+            background: #d6eaf8;
+            color: #21618c;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .guarantee-row {
+            font-size: 10px;
+            font-weight: 600;
+            color: #7f8c8d;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 8px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .text-backup-card {
+            background: white;
+            padding: 15px;
+            border-radius: 16px;
+            max-width: 440px;
+            margin: 20px auto;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        textarea { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ccc; background: #fafafa; font-family: inherit; font-size: 13px; box-sizing: border-box; }
+        .btn-copy-text { width: 100%; background: #2c3e50; color: white; border: none; padding: 12px; border-radius: 10px; margin-top: 8px; font-weight: 600; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="control-panel">
+        <h2 style="margin: 0 0 5px 0; font-size: 18px; color: var
+
+         
+    
