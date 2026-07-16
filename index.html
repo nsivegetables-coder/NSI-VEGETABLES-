@@ -1,77 +1,107 @@
-<!DOCTYPE html>
+
+         
+    <!DOCTYPE html>
 <html lang="ml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NSI Fresh & Green Poster Generator</title>
+    <title>NSI Official Fixed Size Poster</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --nsi-green: #0f753a;
-            --nsi-light-green: #eef7f1;
-            --nsi-dark: #1b4d22;
-            --price-bg: #0a5c2c;
-            --bg: #f3f4f6;
+            --nsi-green: #0d6632;
+            --nsi-light-bg: #f8faf7;
+            --price-bg: #0c572b;
+            --text-dark: #1b2e22;
+            --border-color: #d1dfd6;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--bg);
+            background-color: #f0f2f5;
             margin: 0;
             padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .btn-action {
+        .control-panel {
             width: 100%;
-            max-width: 420px;
-            display: block;
-            margin: 0 auto 20px auto;
-            background: linear-gradient(135deg, #3498db, #2980b9);
+            max-width: 440px;
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            margin-bottom: 25px;
+            box-sizing: border-box;
+        }
+
+        .btn-generate {
+            width: 100%;
+            background: linear-gradient(135deg, #11998e, #38ef7d);
             color: white;
             border: none;
-            padding: 15px;
+            padding: 16px;
             border-radius: 12px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(56, 239, 125, 0.3);
         }
 
-        /* 🖼️ ഒഫീഷ്യൽ ഡിസൈൻ പോസ്റ്റർ ബോക്സ് */
-        .poster-canvas {
+        .loading-status {
             display: none;
+            color: #666;
+            font-weight: 500;
+            margin: 15px 0;
+        }
+
+        .posters-container {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
             width: 100%;
-            max-width: 430px;
-            margin: 0 auto;
+            align-items: center;
+        }
+
+        /* 🖼️ ഒരു പോസ്റ്ററിന്റെ കൃത്യമായ ഫിക്സഡ് വലുപ്പം (Fixed Standard Size) */
+        .poster-card {
+            width: 100%;
+            max-width: 440px;
+            height: 720px; /* 🔳 ഒരു പോസ്റ്ററിന്റെ വലുപ്പം എപ്പോഴും സ്ഥിരമായി നിർത്തുന്നു */
             background: #ffffff;
-            border: 3px solid var(--nsi-green);
-            border-radius: 20px;
+            border: 6px solid var(--nsi-green);
+            border-radius: 24px;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* ഉള്ളടക്കം മുകളിലും താഴെയുമായി തുല്യമായി നിൽക്കും */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
         }
 
-        /* Top Header Area */
-        .poster-top {
+        /* ഹെഡ്ഡർ ഡിസൈൻ */
+        .poster-header {
             background: white;
-            padding: 15px;
+            padding: 18px 15px 8px 15px;
             text-align: center;
-            border-bottom: 2px solid #eef7f1;
+            border-bottom: 2px solid var(--nsi-light-bg);
         }
 
-        .brand-section {
+        .logo-area {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 5px;
+            gap: 12px;
         }
 
-        .brand-logo {
+        .logo-circle {
             background: var(--nsi-green);
             color: white;
             font-weight: 800;
-            font-size: 24px;
+            font-size: 26px;
             width: 55px;
             height: 55px;
             border-radius: 50%;
@@ -81,353 +111,56 @@
             border-bottom-right-radius: 0px;
         }
 
-        .brand-text {
-            text-align: left;
-        }
-
-        .brand-text h1 {
+        .logo-titles h1 {
             margin: 0;
-            font-size: 20px;
+            font-size: 22px;
             color: var(--nsi-green);
             font-weight: 800;
             line-height: 1;
         }
 
-        .brand-text span {
-            font-size: 10px;
-            color: #555;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+        .logo-titles span {
+            font-size: 9px;
+            color: #444;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            display: block;
+            margin-top: 2px;
         }
 
-        .tagline {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--nsi-dark);
-            margin: 5px 0 10px 0;
+        .banner-tagline {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 6px 0;
         }
 
-        .main-badge {
+        .title-badge {
             background: #fff;
             border: 2px solid var(--nsi-green);
             color: var(--nsi-green);
-            padding: 3px 25px;
-            border-radius: 25px;
+            padding: 3px 30px;
+            border-radius: 30px;
             font-size: 18px;
             font-weight: 800;
             display: inline-block;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
-        .date-badge {
+        .meta-info {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 5px;
+            margin-top: 8px;
             font-size: 11px;
-            color: #666;
-            margin-top: 5px;
-            font-weight: 500;
+            color: #555;
+            font-weight: 700;
         }
 
-        /* 📋 പച്ചക്കറി ഗ്രിഡ് (2 Columns) */
-        .grid-container {
+        /* 📋 ഫിക്സഡ് ഗ്രിഡ് ലേഔട്ട് (എപ്പോഴും കൃത്യമായി ഒരേ അളവിൽ വരാൻ) */
+        .items-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            padding: 10px;
-            background: #fff;
-        }
-
-        .grid-item {
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 6px 8px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #fafafa;
-        }
-
-        .item-details {
-            display: flex;
-            align-items: center;
             gap: 6px;
-        }
-
-        .item-num {
-            font-size: 10px;
-            background: var(--nsi-green);
-            color: white;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-        }
-
-        .item-emoji-name {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .item-name-text {
-            font-size: 12px;
-            font-weight: 700;
-            color: #2c3e50;
-        }
-
-        .price-badge-box {
-            text-align: right;
-            background: var(--price-bg);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 6px;
-            min-width: 50px;
-        }
-
-        .p-unit {
-            font-size: 8px;
-            display: block;
-            opacity: 0.8;
-            line-height: 1;
-            margin-bottom: 2px;
-        }
-
-        .p-amount {
-            font-size: 13px;
-            font-weight: 700;
-            line-height: 1;
-        }
-
-        /* 📞 Bottom Footer Info Card */
-        .poster-footer-area {
-            background: #fff;
-            border-top: 2px solid #eef7f1;
-            padding: 12px;
-            text-align: center;
-        }
-
-        .footer-row-one {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-            background: #fff8e7;
-            padding: 6px 12px;
-            border-radius: 10px;
-            border: 1px dashed #f39c12;
-        }
-
-        .footer-whatsapp {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            font-weight: 700;
-            color: #2c3e50;
-        }
-
-        .footer-whatsapp span {
-            color: var(--nsi-green);
-            font-size: 14px;
-        }
-
-        .delivery-badge {
-            background: #d4efdf;
-            color: #196f3d;
-            font-size: 9px;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 20px;
-            text-transform: uppercase;
-        }
-
-        .footer-guarantee {
-            font-size: 10px;
-            font-weight: 600;
-            color: #7f8c8d;
-            border-top: 1px solid #f1f5f9;
-            padding-top: 6px;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        /* Copy Button Card */
-        .text-card {
-            background: white;
-            padding: 15px;
-            border-radius: 12px;
-            max-width: 420px;
-            margin: 20px auto 0 auto;
-            display: none;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-        }
-
-        textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; background: #f9f9f9; font-family: inherit; font-size: 13px; box-sizing: border-box; }
-        .btn-copy { width: 100%; background: #2c3e50; color: white; border: none; padding: 10px; border-radius: 8px; margin-top: 8px; font-weight: 600; cursor: pointer; }
-        .loading { text-align: center; color: #7f8c8d; margin: 20px 0; font-weight: 500; }
-    </style>
-</head>
-<body>
-
-    <button class="btn-action" onclick="fetchSheetData()">📋 ഒഫീഷ്യൽ പ്രൈസ് ലിസ്റ്റ് നിർമ്മിക്കുക</button>
-
-    <div id="loading" class="loading" style="display: none;">⏳ ഒഫീഷ്യൽ ലേഔട്ടിലേക്ക് വിലവിവരങ്ങൾ മാറ്റുന്നു...</div>
-
-    <div class="poster-canvas" id="nsi-poster">
-        
-        <div class="poster-top">
-            <div class="brand-section">
-                <div class="brand-logo">NSi</div>
-                <div class="brand-text">
-                    <h1>FRESH & GREEN</h1>
-                    <span>BEST PRICE | BEST QUALITY | BEST SERVICE</span>
-                </div>
-            </div>
-            <div class="tagline">പുതുമയുള്ള പച്ചക്കറികൾ നേരിട്ട് നിങ്ങളുടെ വീട്ടിലേക്ക്</div>
-            <div class="main-badge">PRICE LIST</div>
-            <div class="date-badge" id="poster-date">📆 Date: --/--/----</div>
-        </div>
-
-        <div class="grid-container" id="items-grid">
-            </div>
-
-        <div class="poster-footer-area">
-            <div class="footer-row-one">
-                <div class="footer-whatsapp">
-                    🟢 WHATSAPP വഴി ഓർഡർ ചെയ്യൂ: <b>+91 90 37 38 39 40</b>
-                </div>
-                <div class="delivery-badge">FAST DELIVERY</div>
-            </div>
-            <div class="footer-guarantee">
-                <span>🌱 പുതുമ നാം ഉറപ്പ്</span>
-                <span>🧼 ശുദ്ധിയും ഗുണവും</span>
-                <span>🤝 വിശ്വാസം നമ്മുടെ വാഗ്ദാനം</span>
-            </div>
-        </div>
-
-    </div>
-    
-    <p id="hint" style="text-align: center; color: #e67e22; font-weight: bold; font-size: 12px; display: none; margin-top: 10px;">💡 ഒഫീഷ്യൽ പോസ്റ്റർ റെഡി! ഇതിന്റെ ഒരു സ്ക്രീൻഷോട്ട് എടുത്ത് വാട്സാപ്പിൽ പങ്കുവെക്കാം.</p>
-
-    <div class="text-card" id="text-card">
-        <span style="font-size: 13px; font-weight: 600; color: #555; display:block; margin-bottom: 5px;">💬 വാട്സാപ്പ് ബൾക്ക് മെസ്സേജ് ടെക്സ്റ്റ്:</span>
-        <textarea id="text-area" rows="5"></textarea>
-        <button class="btn-copy" onclick="copyText()">📋 ടെക്സ്റ്റ് ലിസ്റ്റ് കോപ്പി ചെയ്യുക</button>
-    </div>
-
-<script>
-    const baseUrl = "https://script.google.com/macros/s/AKfycbyg9RmH2iFblNzWNBBL7J4SR-W003CQnDju8RPoPBINF_cD6Fdidkn7h9QLvMsL8u4z/exec";
-    const mainWebsiteUrl = "https://nsivegetables-coder.github.io/nsi-vegetables-pattambi/";
-
-    // പച്ചക്കറികൾക്ക് അനുയോജ്യമായ ഇമോജികൾ നൽകാൻ
-    const emojiMap = {
-        "തക്കാളി": "🍅", "Tomato": "🍅",
-        "ഉള്ളി": "🧅", "ചെറിയ ഉള്ളി": "🧅", "സവാള": "🧅", "Onion": "🧅",
-        "ഉരുളക്കിഴങ്ങ്": "🥔", "Potato": "🥔",
-        "പച്ചമുളക്": "🌶️", "Chilli": "🌶️",
-        "വെണ്ടക്ക": "🥒", "Ladies finger": "🥒",
-        "മത്തൻ": "🎃", "Pumpkin": "🎃",
-        "കുമ്പളങ്ങ": "🍈",
-        "വെള്ളരിക്ക": "🥒", "Cucumber": "🥒",
-        "കാരറ്റ്": "🥕", "Carrot": "🥕",
-        "മല്ലിചെപ്പ്": "🌿", "കറിവേപ്പില": "🍃", "പൊതീന": "🌱"
-    };
-
-    function getEmoji(name) {
-        for (let key in emojiMap) {
-            if (name.toLowerCase().includes(key.toLowerCase())) {
-                return emojiMap[key];
-            }
-        }
-        return "📦"; // Default emoji
-    }
-
-    function fetchSheetData() {
-        const loading = document.getElementById("loading");
-        const poster = document.getElementById("nsi-poster");
-        const hint = document.getElementById("hint");
-        const tCard = document.getElementById("text-card");
-        const grid = document.getElementById("items-grid");
-
-        loading.style.display = "block";
-        poster.style.display = "none";
-        hint.style.display = "none";
-        tCard.style.display = "none";
-
-        fetch(`${baseUrl}?_=${new Date().getTime()}`)
-            .then(res => res.json())
-            .then(data => {
-                loading.style.display = "none";
-                let products = Array.isArray(data) ? data : (data.data || []);
-                
-                if(products.length === 0) {
-                    alert("ഷീറ്റിൽ വിവരങ്ങൾ ഒന്നും ലഭ്യമല്ല!");
-                    return;
-                }
-
-                const dateStr = new Date().toLocaleDateString('en-IN');
-                document.getElementById("poster-date").innerText = `📆 Date: ${dateStr}`;
-
-                let gridHtml = "";
-                let txtMsg = `🥬 *NSI FRESH & GREEN* 🥬\n📆 വിലവിവരപ്പട്ടിക: ${dateStr}\n\n`;
-                let count = 1;
-
-                products.forEach(item => {
-                    const keys = Object.keys(item).reduce((acc, k) => {
-                        acc[k.toLowerCase().replace(/\s+/g, '')] = item[k];
-                        return acc;
-                    }, {});
-
-                    let name = keys['name'] || "No Name";
-                    let price = parseFloat(keys['offerprice']) || 0;
-
-                    if (name !== "No Name" && price > 0) {
-                        let emoji = getEmoji(name);
-                        
-                        // 1. ഫോട്ടോ പോസ്റ്ററിലേക്കുള്ള ഗ്രിഡ് ലേഔട്ട് (2 columns)
-                        gridHtml += `
-                            <div class="grid-item">
-                                <div class="item-details">
-                                    <div class="item-num">${count}</div>
-                                    <div class="item-emoji-name">
-                                        <span class="item-name-text">${emoji} ${name}</span>
-                                    </div>
-                                </div>
-                                <div class="price-badge-box">
-                                    <span class="p-unit">1 KG</span>
-                                    <span class="p-amount">₹${price}</span>
-                                </div>
-                            </div>
-                        `;
-
-                        // 2. സാധാരണ വാട്സാപ്പ് ബൾക്ക് മെസ്സേജ് ടെക്സ്റ്റ്
-                        txtMsg += `${count}. ${emoji} ${name} ➔ *₹${price}/kg*\n`;
-                        count++;
-                    }
-                });
-
-                txtMsg += `\n🛒 വെബ്സൈറ്റ് വഴി എളുപ്പത്തിൽ ഓർഡർ ചെയ്യാൻ:\n👉 ${mainWebsiteUrl}`;
-
-                grid.innerHTML = gridHtml;
-                document.getElementById("text-area").value = txtMsg;
-
-                poster.style.display = "block";
-                hint.style.display = "block";
-                tCard.style.display = "block";
-            })
-            .catch(err => {
-                loading.style.display = "none";
-                alert("ഡാറ്റ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല!");
-                console.error(err);
-            });
-    }
-
-    function copyText() {
-        const area = document.getElementById("text-area");
-        area.select();
-        navigator.clipboard.writeText(area.value);
-        alert("🎉 ടെക്സ്റ്റ് ലിസ്റ്റ് കോപ്പി ചെയ്തു!");
-    }
-</script>
-</body>
-</html>
+            padding: 10px;
+            background
