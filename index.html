@@ -135,16 +135,18 @@
             justify-content: center;
         }
 
+        /* 🛠️ അക്ഷരങ്ങൾ മുറിയാതിരിക്കാൻ padding-ഉം height-ഉം ശരിയാക്കി */
         .item-row {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(204, 164, 59, 0.15);
             border-radius: 6px;
-            padding: 0 14px;
+            padding: 4px 14px; /* മുകളിലും താഴെയും സുരക്ഷിതമായ ഗ്യാപ്പ് നൽകി */
             display: flex;
             align-items: center;
             justify-content: space-between;
             box-sizing: border-box;
-            height: 30px; 
+            height: auto; /* ഫിക്സഡ് ഹൈറ്റ് മാറ്റി ഓട്ടോമാറ്റിക് ആക്കി */
+            min-height: 32px;
         }
 
         .box-left {
@@ -167,12 +169,12 @@
             font-size: 13.5px;
             font-weight: 600;
             color: #ffffff;
+            line-height: 1.4; /* ചിഹ്നങ്ങൾക്ക് കൂടുതൽ സ്ഥലം നൽകാൻ */
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        /* 💰 രണ്ട് വിലകളും കാണിക്കാനുള്ള ഡിസൈൻ */
         .box-price-container {
             display: flex;
             align-items: center;
@@ -183,7 +185,7 @@
         .price-regular {
             font-size: 11px;
             color: #e53e3e;
-            text-decoration: line-through; /* വെട്ടിയതുപോലെ കാണിക്കാൻ */
+            text-decoration: line-through; 
             font-weight: 500;
             opacity: 0.85;
         }
@@ -255,11 +257,11 @@
 
     <div class="control-panel">
         <h2 style="margin: 0 0 5px 0; font-size: 20px; color: #cca43b; font-weight: 800;">NSI Studio Style</h2>
-        <p style="margin: 0 0 18px 0; font-size: 12px; color: #a0aec0;">Regular vs Offer Price Sheets (15 Items)</p>
+        <p style="margin: 0 0 18px 0; font-size: 12px; color: #a0aec0;">Fixed Single Column Design (15 Items)</p>
         <button class="btn-generate" onclick="generatePremiumPosters()">🎨 ഡിസൈനർ പോസ്റ്റർ നിർമ്മിക്കുക</button>
     </div>
 
-    <div id="loading" class="loading-status">⏳ ഷീറ്റിൽ നിന്നും ഓഫർ വിവരങ്ങൾ ശേഖരിക്കുന്നു...</div>
+    <div id="loading" class="loading-status">⏳ റേറ്റുകൾ കൃത്യമായി ക്രമീകരിക്കുന്നു...</div>
 
     <div class="posters-container" id="posters-container"></div>
 
@@ -305,7 +307,7 @@
                         cleanedItems.push({ 
                             name: name, 
                             offer: offerPrice,
-                            regular: regularPrice > 0 ? regularPrice : offerPrice + 10 // റെഗുലർ പ്രൈസ് ഇല്ലെങ്കിൽ ഒരു ഡമ്മി കാണിക്കാൻ
+                            regular: regularPrice > 0 ? regularPrice : offerPrice + 10
                         });
                     }
                 });
@@ -322,7 +324,7 @@
                 for (let page = 0; page < totalPageCount; page++) {
                     const start = page * limit;
                     const end = Math.min(start + limit, cleanedItems.length);
-                    const chunk = cleanedItems.slice(start, end);
+                    const chunk = cleanedItems.slice(start; end);
 
                     let wrapper = document.createElement('div');
                     wrapper.className = 'poster-wrapper';
@@ -377,7 +379,6 @@
                     container.appendChild(wrapper);
                 }
 
-                // വാട്സാപ്പ് ബ്രോഡ്കാസ്റ്റ് ടെക്സ്റ്റിലും ഓഫറും റെഗുലറും കാണിക്കും
                 let broadcastMessage = `🥬 *NSI FRESH & GREEN* 🥬\n📆 Date: ${currentDate}\n\n`;
                 cleanedItems.forEach((item, idx) => {
                     broadcastMessage += `${idx + 1}. ${item.name} ➔ ₹~~${item.regular}~~ *₹${item.offer}/kg*\n`;
