@@ -135,17 +135,16 @@
             justify-content: center;
         }
 
-        /* 🛠️ അക്ഷരങ്ങൾ മുറിയാതിരിക്കാൻ padding-ഉം height-ഉം ശരിയാക്കി */
         .item-row {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(204, 164, 59, 0.15);
             border-radius: 6px;
-            padding: 4px 14px; /* മുകളിലും താഴെയും സുരക്ഷിതമായ ഗ്യാപ്പ് നൽകി */
+            padding: 4px 14px; 
             display: flex;
             align-items: center;
             justify-content: space-between;
             box-sizing: border-box;
-            height: auto; /* ഫിക്സഡ് ഹൈറ്റ് മാറ്റി ഓട്ടോമാറ്റിക് ആക്കി */
+            height: auto; 
             min-height: 32px;
         }
 
@@ -169,7 +168,7 @@
             font-size: 13.5px;
             font-weight: 600;
             color: #ffffff;
-            line-height: 1.4; /* ചിഹ്നങ്ങൾക്ക് കൂടുതൽ സ്ഥലം നൽകാൻ */
+            line-height: 1.4; 
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -324,7 +323,7 @@
                 for (let page = 0; page < totalPageCount; page++) {
                     const start = page * limit;
                     const end = Math.min(start + limit, cleanedItems.length);
-                    const chunk = cleanedItems.slice(start; end);
+                    const chunk = cleanedItems.slice(start, end);
 
                     let wrapper = document.createElement('div');
                     wrapper.className = 'poster-wrapper';
