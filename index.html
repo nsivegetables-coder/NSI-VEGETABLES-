@@ -66,10 +66,9 @@
             align-items: center;
         }
 
-        /* 👑 യഥാർത്ഥ സോഷ്യൽ മീഡിയ സ്ക്വയർ ഡിസൈൻ */
         .poster-card {
             width: 100%;
-            aspect-ratio: 1 / 1; /* കറക്റ്റ് ഇൻസ്റ്റാഗ്രാം സ്ക്വയർ ഷേപ്പ് */
+            aspect-ratio: 1 / 1; 
             background: linear-gradient(135deg, #071c11 0%, #0d291b 100%);
             border: 4px solid #cca43b;
             border-radius: 20px;
@@ -78,14 +77,14 @@
             flex-direction: column;
             position: relative;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            padding: 20px;
+            padding: 20px 22px;
             justify-content: space-between;
         }
 
         .poster-header {
             text-align: center;
             border-bottom: 1px solid rgba(254, 254, 254, 0.1);
-            padding-bottom: 8px;
+            padding-bottom: 6px;
         }
 
         .logo-text {
@@ -109,11 +108,11 @@
         .title-badge {
             background: #cca43b;
             color: #071c11;
-            padding: 3px 18px;
+            padding: 2px 16px;
             border-radius: 4px;
             font-size: 11px;
             font-weight: 700;
-            margin-top: 6px;
+            margin-top: 4px;
             display: inline-block;
             letter-spacing: 1px;
         }
@@ -121,72 +120,74 @@
         .meta-info {
             display: flex;
             justify-content: space-between;
-            margin-top: 8px;
+            margin-top: 6px;
             font-size: 11px;
             color: #a0aec0;
             font-weight: 600;
         }
 
-        /* 🛒 പ്രീമിയം ടൂ-കോളം ലിസ്റ്റ് ഗ്രിഡ് */
-        .items-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* രണ്ടു കോളം ആക്കി ഭംഗി കൂട്ടി */
-            gap: 8px;
-            margin: 12px 0;
+        /* 🟢 സിംഗിൾ കോളം ലിസ്റ്റ് - റേറ്റ് മുറിഞ്ഞു പോകാതിരിക്കാൻ */
+        .items-list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 5px; /* ഇനങ്ങൾ തമ്മിലുള്ള കൃത്യമായ അകലം */
+            margin: 10px 0;
             flex-grow: 1;
-            align-content: start;
+            justify-content: center;
         }
 
         .item-row {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(204, 164, 59, 0.15);
-            border-radius: 8px;
-            padding: 6px 10px;
+            border-radius: 6px;
+            padding: 0 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             box-sizing: border-box;
-            height: 42px;
+            height: 30px; /* 15 എണ്ണം കൊള്ളാൻ പാകത്തിലുള്ള പൊക്കം */
         }
 
         .box-left {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 10px;
             flex: 1;
             min-width: 0;
         }
 
         .box-num {
-            font-size: 9px;
+            font-size: 11px;
             color: #cca43b;
             font-weight: 700;
-            opacity: 0.7;
+            opacity: 0.6;
+            width: 18px;
         }
 
         .box-title {
-            font-size: 13px;
+            font-size: 13.5px;
             font-weight: 600;
             color: #ffffff;
             white-space: nowrap;
             overflow: hidden;
-            text-overflow: ellipsis;
+            text-overflow: ellipsis; /* പേര് വളരെ നീളമുള്ളതാണെങ്കിൽ മാത്രം തനിയെ ചുരുങ്ങും */
         }
 
         .box-price-tag {
             text-align: right;
             flex-shrink: 0;
+            padding-left: 10px;
         }
 
         .tag-amount {
-            font-size: 14px;
+            font-size: 14.5px;
             font-weight: 700;
-            color: #ffb703; /* മനോഹരമായ ഗോൾഡൻ ഓറഞ്ച് നിറം */
+            color: #ffb703; /* ആകർഷകമായ റേറ്റ് കളർ */
         }
 
         .poster-footer {
             border-top: 1px solid rgba(254, 254, 254, 0.1);
-            padding-top: 10px;
+            padding-top: 8px;
             text-align: center;
         }
 
@@ -243,11 +244,11 @@
 
     <div class="control-panel">
         <h2 style="margin: 0 0 5px 0; font-size: 20px; color: #cca43b; font-weight: 800;">NSI Studio Style</h2>
-        <p style="margin: 0 0 18px 0; font-size: 12px; color: #a0aec0;">സ്ക്വയർ ഡിജിറ്റൽ ഫ്ലെയർ ഡിസൈൻ (15 Items)</p>
+        <p style="margin: 0 0 18px 0; font-size: 12px; color: #a0aec0;">ഫിക്സഡ് സിംഗിൾ കോളം ഡിസൈൻ (15 Items)</p>
         <button class="btn-generate" onclick="generatePremiumPosters()">🎨 ഡിസൈനർ പോസ്റ്റർ നിർമ്മിക്കുക</button>
     </div>
 
-    <div id="loading" class="loading-status">⏳ പ്രീമിയം ലുക്കിലേക്ക് മാറ്റുന്നു...</div>
+    <div id="loading" class="loading-status">⏳ റേറ്റുകൾ കൃത്യമായി ക്രമീകരിക്കുന്നു...</div>
 
     <div class="posters-container" id="posters-container"></div>
 
@@ -294,12 +295,12 @@
                 });
 
                 if (cleanedItems.length === 0) {
-                    alert("ഡാറ്റ ഒന്നും കണ്ടെത്തിയില്ല!");
+                    alert("ഷീറ്റിൽ ഡാറ്റ ഒന്നും കണ്ടെത്തിയില്ല!");
                     return;
                 }
 
                 const currentDate = new Date().toLocaleDateString('en-IN');
-                const limit = 14; // സ്ക്വയർ ഫ്രെയിമിൽ കറക്റ്റ് ആയി കൊള്ളാൻ 14 എണ്ണമാക്കി ചുരുക്കി (7 വരികൾ x 2 കോളം)
+                const limit = 15; // ഓരോ പേജിലും കൃത്യം 15 എണ്ണം
                 const totalPageCount = Math.ceil(cleanedItems.length / limit);
 
                 for (let page = 0; page < totalPageCount; page++) {
@@ -311,10 +312,10 @@
                     wrapper.className = 'poster-wrapper';
                     let posterId = `poster-page-${page + 1}`;
                     
-                    let gridCells = "";
+                    let listRows = "";
                     chunk.forEach((item, index) => {
                         const serialNumber = start + index + 1;
-                        gridCells += `
+                        listRows += `
                             <div class="item-row">
                                 <div class="box-left">
                                     <span class="box-num">${serialNumber}</span>
@@ -340,8 +341,8 @@
                                 </div>
                             </div>
 
-                            <div class="items-grid">
-                                ${gridCells}
+                            <div class="items-list-container">
+                                ${listRows}
                             </div>
 
                             <div class="poster-footer">
