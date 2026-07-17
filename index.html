@@ -135,17 +135,17 @@
             justify-content: center;
         }
 
-        /* 🛠️ ഇവിടെ മാറ്റം വരുത്തി: മുകളിലും താഴെയും 7px ഗ്യാപ്പ് നൽകി, ചിഹ്നങ്ങൾ സുരക്ഷിതമാക്കി */
         .item-row {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(204, 164, 59, 0.15);
             border-radius: 6px;
-            padding: 7px 14px; 
+            padding: 8px 14px; 
             display: flex;
             align-items: center;
             justify-content: space-between;
             box-sizing: border-box;
             height: auto; 
+            overflow: visible; /* ചിഹ്നങ്ങൾ മുറിഞ്ഞു പോകാതിരിക്കാൻ */
         }
 
         .box-left {
@@ -154,6 +154,7 @@
             gap: 10px;
             flex: 1;
             min-width: 0;
+            overflow: visible;
         }
 
         .box-num {
@@ -164,15 +165,14 @@
             width: 18px;
         }
 
-        /* 🛠️ മലയാളം അക്ഷരങ്ങളുടെ പൊക്കം (line-height) കൂട്ടി */
+        /* 🛠️ മലയാളം ചിഹ്നങ്ങൾക്ക് ആവശ്യത്തിന് സ്പേസ് നൽകി തിരുത്തിയത് */
         .box-title {
-            font-size: 13.5px;
+            font-size: 14px;
             font-weight: 600;
             color: #ffffff;
-            line-height: 1.6; 
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            line-height: 1.8; /* ചിഹ്നങ്ങൾക്ക് മുകളിൽ നല്ല ഗ്യാപ്പ് നൽകുന്നു */
+            white-space: normal; /* അക്ഷരങ്ങൾ കട്ട് ആകുന്നത് തടയുന്നു */
+            overflow: visible;
         }
 
         .box-price-container {
@@ -258,7 +258,7 @@
     <div class="control-panel">
         <h2 style="margin: 0 0 5px 0; font-size: 20px; color: #cca43b; font-weight: 800;">NSI Studio Style</h2>
         <p style="margin: 0 0 18px 0; font-size: 12px; color: #a0aec0;">Fixed Single Column Design (15 Items)</p>
-        <button class="btn-generate" onclick="generatePremiumPosters()">🎨 ഡിസൈനർ പോസ്റ്റർ നിർമ്മിക്കുക</button>
+        <button class="btn-generate" onclick="generatePremiumPosters()">🎨 ഡിзайനർ പോസ്റ്റർ നിർമ്മിക്കുക</button>
     </div>
 
     <div id="loading" class="loading-status">⏳ റേറ്റുകൾ കൃത്യമായി ക്രമീകരിക്കുന്നു...</div>
