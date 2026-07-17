@@ -3,23 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NSI Premium All-in-One Poster Generator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>NSI Luxury All-in-One Price List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Serif+Malayalam:wght@600;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
-            --nsi-green: #0d6632;
-            --nsi-light-bg: #f8faf7;
-            --price-bg: #0c572b;
-            --text-dark: #1b2e22;
-            --border-color: #d1dfd6;
+            --nsi-dark-green: #064e28;
+            --nsi-gold: #cca43b;
+            --nsi-gold-light: #f9f5e8;
+            --bg-gradient: #f4f7f5;
+            --text-dark: #112211;
+            --item-bg: #ffffff;
+            --border-color: #e2e8f0;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f0f2f5;
+            font-family: 'Manrope', 'Noto Serif Malayalam', sans-serif;
+            background-color: #eef2f0;
             margin: 0;
-            padding: 10px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -28,33 +30,35 @@
 
         .control-panel {
             width: 100%;
-            max-width: 440px;
+            max-width: 450px;
             background: white;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             text-align: center;
             margin-bottom: 25px;
             box-sizing: border-box;
+            border: 1px solid rgba(6, 78, 40, 0.1);
         }
 
         .btn-generate {
             width: 100%;
-            background: linear-gradient(135deg, #11998e, #38ef7d);
+            background: linear-gradient(135deg, #064e28, #11753e);
             color: white;
             border: none;
             padding: 16px;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(56, 239, 125, 0.3);
+            box-shadow: 0 5px 15px rgba(6, 78, 40, 0.2);
+            transition: all 0.3s ease;
         }
 
         .loading-status {
             display: none;
-            color: #666;
-            font-weight: 500;
+            color: var(--nsi-dark-green);
+            font-weight: 600;
             margin: 15px 0;
             font-size: 14px;
         }
@@ -68,125 +72,134 @@
 
         .poster-wrapper {
             width: 100%;
-            max-width: 440px;
+            max-width: 450px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
+        /* ✨ പ്രീമിയം ലുക്കുള്ള മെയിൻ കാർഡ് */
         .poster-card {
             width: 100%;
             background: #ffffff;
-            border: 6px solid var(--nsi-green);
-            border-radius: 20px;
+            border-top: 12px solid var(--nsi-dark-green);
+            border-bottom: 12px solid var(--nsi-dark-green);
+            border-left: 2px solid rgba(6, 78, 40, 0.1);
+            border-right: 2px solid rgba(6, 78, 40, 0.1);
+            border-radius: 24px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
         }
 
+        /* 👑 രാജകീയമായ ഹെഡർ ഡിസൈൻ */
         .poster-header {
-            background: white;
-            padding: 15px 10px 8px 10px;
+            background: linear-gradient(to bottom, #ffffff, #fafdFA);
+            padding: 25px 15px 15px 15px;
             text-align: center;
-            border-bottom: 2px solid var(--nsi-light-bg);
+            position: relative;
         }
 
         .logo-area {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 5px;
+            margin-bottom: 10px;
         }
 
-        .logo-circle {
-            background: var(--nsi-green);
-            color: white;
+        .logo-text {
+            font-size: 28px;
             font-weight: 800;
-            font-size: 24px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom-right-radius: 0px;
-        }
-
-        .logo-titles h1 {
+            color: var(--nsi-dark-green);
+            letter-spacing: 1.5px;
             margin: 0;
-            font-size: 20px;
-            color: var(--nsi-green);
-            font-weight: 800;
             line-height: 1;
         }
 
-        .logo-titles span {
-            font-size: 8.5px;
-            color: #444;
+        .logo-sub {
+            font-size: 10px;
+            color: var(--nsi-gold);
             font-weight: 700;
-            letter-spacing: 0.5px;
-            display: block;
+            letter-spacing: 3px;
+            text-transform: uppercase;
             margin-top: 2px;
         }
 
+        .divider-gold {
+            width: 60px;
+            height: 3px;
+            background: var(--nsi-gold);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
         .banner-tagline {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin: 5px 0;
+            font-size: 12px;
+            font-weight: 600;
+            color: #4a5568;
+            margin: 5px 0 12px 0;
+            font-style: italic;
         }
 
         .title-badge {
-            background: #fff;
-            border: 2px solid var(--nsi-green);
-            color: var(--nsi-green);
-            padding: 2px 25px;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: 800;
+            background: var(--nsi-dark-green);
+            color: #ffffff;
+            padding: 5px 30px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 700;
             display: inline-block;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(6, 78, 40, 0.15);
         }
 
         .meta-info {
             display: flex;
             justify-content: space-between;
-            padding: 0 10px;
-            margin-top: 8px;
-            font-size: 11px;
-            color: #555;
-            font-weight: 700;
+            padding: 0 15px;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #718096;
+            font-weight: 600;
+            border-top: 1px solid #edf2f7;
+            padding-top: 10px;
         }
 
-        /* 📋 എല്ലാ ഐറ്റങ്ങളും താഴെ താഴെയായി കാണിക്കാനുള്ള ഗ്രിഡ് */
+        /* 🛒 ലക്ഷ്വറി ഐറ്റം ഗ്രിഡ് */
         .items-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            padding: 10px;
-            background: #fff;
+            gap: 10px;
+            padding: 15px;
+            background: #fafbfa;
             box-sizing: border-box;
         }
 
         .grid-box {
             border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 6px 8px;
+            border-radius: 14px;
+            padding: 8px 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: var(--nsi-light-bg);
+            background: var(--item-bg);
             box-sizing: border-box;
-            height: 52px;
+            height: 56px;
             min-width: 0;
-            gap: 5px;
+            gap: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            transition: all 0.2s ease;
         }
 
         .box-left {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             overflow: hidden;
             min-width: 0;
             flex: 1;
@@ -194,10 +207,10 @@
 
         .box-num {
             font-size: 10px;
-            background: var(--nsi-green);
-            color: white;
-            width: 16px;
-            height: 16px;
+            background: #edf2f7;
+            color: var(--nsi-dark-green);
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -207,7 +220,7 @@
         }
 
         .box-title {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
             color: var(--text-dark);
             white-space: normal;
@@ -221,128 +234,139 @@
 
         .box-price-tag {
             text-align: center;
-            background: var(--price-bg);
+            background: linear-gradient(135deg, #064e28, #0b6b39);
             color: white;
-            padding: 3px 6px;
-            border-radius: 5px;
-            min-width: 46px;
+            padding: 4px 8px;
+            border-radius: 8px;
+            min-width: 52px;
             flex-shrink: 0;
             box-sizing: border-box;
+            border-bottom: 2px solid var(--nsi-gold);
         }
 
         .tag-unit {
-            font-size: 7.5px;
+            font-size: 8px;
             display: block;
-            opacity: 0.9;
+            opacity: 0.85;
             line-height: 1;
-            margin-bottom: 1px;
+            margin-bottom: 2px;
             font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .tag-amount {
-            font-size: 12.5px;
+            font-size: 13px;
             font-weight: 700;
             line-height: 1;
             display: block;
         }
 
+        /* 🏆 പ്രീമിയം ഫൂട്ടർ ഡിസൈൻ */
         .poster-footer {
             background: white;
-            border-top: 2px solid var(--nsi-light-bg);
-            padding: 10px;
+            border-top: 1px solid #edf2f7;
+            padding: 15px 15px 20px 15px;
             text-align: center;
-            margin-top: auto;
         }
 
         .footer-banner-wa {
-            background: #fff9eb;
-            padding: 6px;
-            border-radius: 8px;
-            border: 1px dashed #e67e22;
-            font-size: 11px;
+            background: var(--nsi-gold-light);
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(204, 164, 59, 0.3);
+            font-size: 12px;
             font-weight: 700;
-            color: #333;
-            margin-bottom: 6px;
+            color: var(--nsi-dark-green);
+            margin-bottom: 12px;
         }
 
         .footer-banner-wa b {
-            color: var(--nsi-green);
-            font-size: 13px;
+            color: #d35400;
+            font-size: 14px;
         }
 
         .delivery-badges-row {
             display: flex;
             justify-content: center;
-            gap: 6px;
-            margin-bottom: 8px;
+            gap: 8px;
+            margin-bottom: 12px;
         }
 
-        .badge-green, .badge-blue {
-            font-size: 8.5px;
+        .badge-premium {
+            font-size: 9px;
             font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 20px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
-        .badge-green { background: #d4efdf; color: #196f3d; }
-        .badge-blue { background: #d6eaf8; color: #21618c; }
+        .badge-green { background: #e6f4ea; color: #137333; }
+        .badge-gold { background: var(--nsi-gold-light); color: #b08207; }
 
         .guarantee-row {
-            font-size: 9.5px;
+            font-size: 10px;
             font-weight: 600;
-            color: #7f8c8d;
+            color: #718096;
             border-top: 1px solid #f1f5f9;
-            padding-top: 6px;
+            padding-top: 10px;
             display: flex;
             justify-content: space-around;
         }
 
+        /* 🟢 ഷെയർ ബട്ടൺ സ്റ്റൈൽ */
         .btn-share-wa {
             background: #25d366;
             color: white;
             border: none;
-            padding: 14px 20px;
-            border-radius: 12px;
+            padding: 15px 24px;
+            border-radius: 14px;
             font-size: 15px;
             font-weight: 700;
-            margin-top: 12px;
+            margin-top: 15px;
             cursor: pointer;
             width: 100%;
-            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
+            transition: transform 0.2s;
+        }
+        
+        .btn-share-wa:active {
+            transform: scale(0.98);
         }
 
         .text-backup-card {
             background: white;
-            padding: 15px;
-            border-radius: 16px;
-            max-width: 440px;
+            padding: 18px;
+            border-radius: 20px;
+            max-width: 450px;
             margin: 20px auto;
             display: none;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
             width: 100%;
             box-sizing: border-box;
+            border: 1px solid #e2e8f0;
         }
-        textarea { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ccc; background: #fafafa; font-family: inherit; font-size: 13px; box-sizing: border-box; }
-        .btn-copy-text { width: 100%; background: #2c3e50; color: white; border: none; padding: 12px; border-radius: 10px; margin-top: 8px; font-weight: 600; cursor: pointer; }
+        textarea { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e0; background: #f7fafc; font-family: inherit; font-size: 13px; box-sizing: border-box; }
+        .btn-copy-text { width: 100%; background: #2d3748; color: white; border: none; padding: 14px; border-radius: 12px; margin-top: 10px; font-weight: 600; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div class="control-panel">
-        <h2 style="margin: 0 0 5px 0; font-size: 18px; color: var(--nsi-green);">NSI Fresh & Green</h2>
-        <p style="margin: 0 0 15px 0; font-size: 12px; color: #666;">എല്ലാ പച്ചക്കറികളും ഒരൊറ്റ വലിയ പോസ്റ്ററിൽ നിർമ്മിക്കുക.</p>
-        <button class="btn-generate" onclick="generatePremiumPosters()">✨ ഒഫീഷ്യൽ പോസ്റ്റർ നിർമ്മിക്കുക</button>
+        <h2 style="margin: 0 0 5px 0; font-size: 20px; color: var(--nsi-dark-green); font-weight: 800;">NSI Premium Hub</h2>
+        <p style="margin: 0 0 18px 0; font-size: 12px; color: #718096;">ലക്ഷ്വറി സിംഗിൾ പോസ്റ്റർ ജനറേറ്റർ സിസ്റ്റം</p>
+        <button class="btn-generate" onclick="generatePremiumPosters()">✨ പ്രീമിയം പോസ്റ്റർ നിർമ്മിക്കുക</button>
     </div>
 
-    <div id="loading" class="loading-status">⏳ ഷീറ്റിൽ നിന്നും പുതിയ വില വിവരങ്ങൾ ശേഖരിക്കുന്നു...</div>
+    <div id="loading" class="loading-status">⏳ ഷീറ്റിൽ നിന്നും പ്രീമിയം പ്രൈസ് ലിസ്റ്റ് ഡാറ്റ ശേഖരിക്കുന്നു...</div>
 
     <div class="posters-container" id="posters-container"></div>
 
     <div class="text-backup-card" id="text-card">
-        <span style="font-size: 13px; font-weight: 700; color: #444; display:block; margin-bottom: 6px;">💬 വാട്സാപ്പ് മെസ്സേജ് ടെക്സ്റ്റ് ലിസ്റ്റ്:</span>
+        <span style="font-size: 13px; font-weight: 700; color: #2d3748; display:block; margin-bottom: 8px;">💬 വാട്സാപ്പ് മെസ്സേജ് ടെക്സ്റ്റ് ലിസ്റ്റ്:</span>
         <textarea id="text-area" rows="6"></textarea>
         <button class="btn-copy-text" onclick="copyBroadcastText()">📋 ടെക്സ്റ്റ് ലിസ്റ്റ് കോപ്പി ചെയ്യുക</button>
     </div>
@@ -420,17 +444,15 @@
                     <div class="poster-card" id="${posterId}">
                         <div class="poster-header">
                             <div class="logo-area">
-                                <div class="logo-circle">NSi</div>
-                                <div class="logo-titles">
-                                    <h1>FRESH & GREEN</h1>
-                                    <span>BEST PRICE | BEST QUALITY | BEST SERVICE</span>
-                                </div>
+                                <h1 class="logo-text">NSI FRESH</h1>
+                                <span class="logo-sub">Premium Quality</span>
                             </div>
-                            <div class="banner-tagline">പുതുമയുള്ള പച്ചക്കറികൾ നേരിട്ട് നിങ്ങളുടെ വീട്ടിലേക്ക്</div>
-                            <div class="title-badge">PRICE LIST</div>
+                            <div class="divider-gold"></div>
+                            <div class="banner-tagline">ഏറ്റവും മികച്ച പച്ചക്കറികൾ നിങ്ങളുടെ അടുക്കളയിലേക്ക്</div>
+                            <div class="title-badge">DAILY PRICE LIST</div>
                             <div class="meta-info">
                                 <span>📆 Date: ${currentDate}</span>
-                                <span style="color: var(--nsi-green)">Total Items: ${cleanedItems.length}</span>
+                                <span style="color: var(--nsi-dark-green)">Total Items: ${cleanedItems.length}</span>
                             </div>
                         </div>
 
@@ -440,22 +462,22 @@
 
                         <div class="poster-footer">
                             <div class="footer-banner-wa">
-                                🟢 WHATSAPP വഴി ഓർഡർ ചെയ്യൂ: <b>+91 90 37 38 39 40</b>
+                                🟢 വാട്സാപ്പ് വഴി ഓർഡർ ചെയ്യാം: <b>+91 90 37 38 39 40</b>
                             </div>
                             <div class="delivery-badges-row">
-                                <span class="badge-green">FAST DELIVERY</span>
-                                <span class="badge-blue">FREE DELIVERY ABOVE ₹499</span>
+                                <span class="badge-premium badge-green">⚡ Fast Delivery</span>
+                                <span class="badge-premium badge-gold">✨ Premium Service</span>
                             </div>
                             <div class="guarantee-row">
-                                <span>🌱  പുതുമ നാം ഉറപ്പ്</span>
-                                <span>🧼  ശുദ്ധിയും ഗുണവും</span>
-                                <span>🤝  വിശ്വാസം വാഗ്ദാനം</span>
+                                <span>🌱 100% Freshness</span>
+                                <span>🧼 Hygiene Ensured</span>
+                                <span>🤝 Best Price</span>
                             </div>
                         </div>
                     </div>
                     
                     <button class="btn-share-wa" onclick="sharePosterToWhatsApp('${posterId}')">
-                        🟢 ഈ ഒരൊറ്റ പോസ്റ്റർ വാട്സാപ്പിൽ ഷെയർ ചെയ്യുക
+                        🟢 ഈ പ്രീമിയം പോസ്റ്റർ വാട്സാപ്പിൽ അയക്കുക
                     </button>
                 `;
 
@@ -480,22 +502,22 @@
         const element = document.getElementById(elementId);
         const btn = element.nextElementSibling;
         const originalText = btn.innerHTML;
-        btn.innerHTML = "⏳ ഫോട്ടോ തയ്യാറാക്കുന്നു (ദയവായി കാത്തിരിക്കുക)...";
+        btn.innerHTML = "⏳ പ്രീമിയം ഫോട്ടോ നിർമ്മിക്കുന്നു...";
         btn.disabled = true;
 
         html2canvas(element, {
-            scale: 2, 
+            scale: 2.5, // സൂപ്പർ പ്രീമിയം ക്വാളിറ്റിക്ക് വേണ്ടി സ്കെയിൽ കൂട്ടി
             useCORS: true,
             backgroundColor: "#ffffff"
         }).then(canvas => {
             canvas.toBlob(blob => {
-                const file = new File([blob], `NSI_Full_PriceList.png`, { type: 'image/png' });
+                const file = new File([blob], `NSI_Premium_PriceList.png`, { type: 'image/png' });
                 
                 if (navigator.canShare && navigator.canShare({ files: [file] })) {
                     navigator.share({
                         files: [file],
-                        title: `NSI Fresh & Green Full Price List`,
-                        text: `NSI Fresh & Green ഇന്നത്തെ മുഴുവൻ വിലവിവരപ്പട്ടിക.\n🛒 ഓൺലൈനായി ഓർഡർ ചെയ്യാൻ: ${shopWebsiteUrl}`
+                        title: `NSI Premium Price List`,
+                        text: `NSI Fresh ഇന്നത്തെ പ്രത്യേക വിലവിവരപ്പട്ടിക.\n🛒 ഓൺലൈനായി ഓർഡർ ചെയ്യാൻ: ${shopWebsiteUrl}`
                     })
                     .then(() => {
                         btn.innerHTML = originalText;
@@ -509,11 +531,11 @@
                 } else {
                     const a = document.createElement('a');
                     a.href = canvas.toDataURL('image/png');
-                    a.download = `NSI_Full_PriceList.png`;
+                    a.download = `NSI_Premium_PriceList.png`;
                     a.click();
                     btn.innerHTML = originalText;
                     btn.disabled = false;
-                    alert("പോസ്റ്റർ ഫോണിലേക്ക് ഡൗൺലോഡ് ആയിട്ടുണ്ട്! ഇത് വാട്സാപ്പിൽ അയക്കാം.");
+                    alert("പ്രീമിയം പോസ്റ്റർ ഫോണിലേക്ക് സേവ് ആയിട്ടുണ്ട്! ഇത് വാട്സാപ്പിൽ ഷെയർ ചെയ്യാം.");
                 }
             }, 'image/png');
         });
@@ -523,7 +545,7 @@
         const area = document.getElementById("text-area");
         area.select();
         navigator.clipboard.writeText(area.value);
-        alert("🎉 ലിസ്റ്റ് വിജയകരമായി കോപ്പി ചെയ്തു!");
+        alert("🎉 ലിസ്റ്റ് കോപ്പി ചെയ്തു!");
     }
 </script>
 </body>
