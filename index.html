@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NSI Luxury All-in-One Price List</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Serif+Malayalam:wght@600;800&display=swap" rel="stylesheet">
+    <title>NSI Premium 15-Item Multi-Page Poster Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Noto+Serif+Malayalam:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
             --nsi-dark-green: #064e28;
             --nsi-gold: #cca43b;
             --nsi-gold-light: #f9f5e8;
-            --bg-gradient: #f4f7f5;
             --text-dark: #112211;
-            --item-bg: #ffffff;
             --border-color: #e2e8f0;
         }
 
@@ -21,22 +19,21 @@
             font-family: 'Manrope', 'Noto Serif Malayalam', sans-serif;
             background-color: #eef2f0;
             margin: 0;
-            padding: 15px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            box-sizing: border-box;
         }
 
         .control-panel {
             width: 100%;
             max-width: 450px;
             background: white;
-            padding: 24px;
+            padding: 20px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             box-sizing: border-box;
             border: 1px solid rgba(6, 78, 40, 0.1);
         }
@@ -52,7 +49,6 @@
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(6, 78, 40, 0.2);
-            transition: all 0.3s ease;
         }
 
         .loading-status {
@@ -60,12 +56,12 @@
             color: var(--nsi-dark-green);
             font-weight: 600;
             margin: 15px 0;
-            font-size: 14px;
         }
 
         .posters-container {
             display: flex;
             flex-direction: column;
+            gap: 25px;
             width: 100%;
             align-items: center;
         }
@@ -76,49 +72,33 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 30px;
         }
 
-        /* ✨ പ്രീമിയം ലുക്കുള്ള മെയിൻ കാർഡ് */
         .poster-card {
             width: 100%;
             background: #ffffff;
-            border-top: 12px solid var(--nsi-dark-green);
-            border-bottom: 12px solid var(--nsi-dark-green);
-            border-left: 2px solid rgba(6, 78, 40, 0.1);
-            border-right: 2px solid rgba(6, 78, 40, 0.1);
+            border-top: 14px solid var(--nsi-dark-green);
+            border-bottom: 14px solid var(--nsi-dark-green);
             border-radius: 24px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
             box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            overflow: hidden;
         }
 
-        /* 👑 രാജകീയമായ ഹെഡർ ഡിസൈൻ */
         .poster-header {
-            background: linear-gradient(to bottom, #ffffff, #fafdFA);
-            padding: 25px 15px 15px 15px;
+            background: #ffffff;
+            padding: 22px 20px 12px 20px;
             text-align: center;
-            position: relative;
-        }
-
-        .logo-area {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            margin-bottom: 10px;
         }
 
         .logo-text {
             font-size: 28px;
-            font-weight: 800;
+            font-weight: 900;
             color: var(--nsi-dark-green);
             letter-spacing: 1.5px;
             margin: 0;
-            line-height: 1;
         }
 
         .logo-sub {
@@ -127,23 +107,14 @@
             font-weight: 700;
             letter-spacing: 3px;
             text-transform: uppercase;
-            margin-top: 2px;
         }
 
         .divider-gold {
-            width: 60px;
+            width: 70px;
             height: 3px;
             background: var(--nsi-gold);
             margin: 10px auto;
             border-radius: 2px;
-        }
-
-        .banner-tagline {
-            font-size: 12px;
-            font-weight: 600;
-            color: #4a5568;
-            margin: 5px 0 12px 0;
-            font-style: italic;
         }
 
         .title-badge {
@@ -151,66 +122,59 @@
             color: #ffffff;
             padding: 5px 30px;
             border-radius: 50px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
+            margin-top: 8px;
             display: inline-block;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(6, 78, 40, 0.15);
+            letter-spacing: 0.5px;
         }
 
         .meta-info {
             display: flex;
             justify-content: space-between;
-            padding: 0 15px;
-            margin-top: 15px;
+            margin-top: 12px;
             font-size: 12px;
             color: #718096;
-            font-weight: 600;
+            font-weight: 700;
             border-top: 1px solid #edf2f7;
-            padding-top: 10px;
+            padding-top: 8px;
         }
 
-        /* 🛒 ലക്ഷ്വറി ഐറ്റം ഗ്രിഡ് */
-        .items-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            padding: 15px;
-            background: #fafbfa;
-            box-sizing: border-box;
+        .items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 12px 15px;
+            background: #fcfdfe;
         }
 
-        .grid-box {
+        .item-row {
             border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 8px 10px;
+            border-radius: 12px;
+            padding: 8px 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: var(--item-bg);
+            background: white;
             box-sizing: border-box;
             height: 56px;
-            min-width: 0;
-            gap: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.01);
         }
 
         .box-left {
             display: flex;
             align-items: center;
-            gap: 8px;
-            overflow: hidden;
-            min-width: 0;
+            gap: 10px;
             flex: 1;
+            min-width: 0;
         }
 
         .box-num {
             font-size: 10px;
             background: #edf2f7;
             color: var(--nsi-dark-green);
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -220,52 +184,40 @@
         }
 
         .box-title {
-            font-size: 13px;
-            font-weight: 700;
+            font-size: 14px;
+            font-weight: 800;
             color: var(--text-dark);
-            white-space: normal;
-            word-break: break-word;
             line-height: 1.2;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
         }
 
         .box-price-tag {
             text-align: center;
             background: linear-gradient(135deg, #064e28, #0b6b39);
             color: white;
-            padding: 4px 8px;
+            padding: 5px 10px;
             border-radius: 8px;
-            min-width: 52px;
+            min-width: 60px;
             flex-shrink: 0;
-            box-sizing: border-box;
-            border-bottom: 2px solid var(--nsi-gold);
+            border-bottom: 2.5px solid var(--nsi-gold);
         }
 
         .tag-unit {
             font-size: 8px;
             display: block;
             opacity: 0.85;
-            line-height: 1;
-            margin-bottom: 2px;
             font-weight: 600;
-            letter-spacing: 0.5px;
         }
 
         .tag-amount {
-            font-size: 13px;
-            font-weight: 700;
-            line-height: 1;
+            font-size: 14px;
+            font-weight: 800;
             display: block;
         }
 
-        /* 🏆 പ്രീമിയം ഫൂട്ടർ ഡിസൈൻ */
         .poster-footer {
             background: white;
             border-top: 1px solid #edf2f7;
-            padding: 15px 15px 20px 15px;
+            padding: 15px;
             text-align: center;
         }
 
@@ -277,7 +229,6 @@
             font-size: 12px;
             font-weight: 700;
             color: var(--nsi-dark-green);
-            margin-bottom: 12px;
         }
 
         .footer-banner-wa b {
@@ -285,56 +236,23 @@
             font-size: 14px;
         }
 
-        .delivery-badges-row {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .badge-premium {
-            font-size: 9px;
-            font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 30px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-        .badge-green { background: #e6f4ea; color: #137333; }
-        .badge-gold { background: var(--nsi-gold-light); color: #b08207; }
-
-        .guarantee-row {
-            font-size: 10px;
-            font-weight: 600;
-            color: #718096;
-            border-top: 1px solid #f1f5f9;
-            padding-top: 10px;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        /* 🟢 ഷെയർ ബട്ടൺ സ്റ്റൈൽ */
         .btn-share-wa {
             background: #25d366;
             color: white;
             border: none;
-            padding: 15px 24px;
-            border-radius: 14px;
-            font-size: 15px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
             font-weight: 700;
-            margin-top: 15px;
+            margin-top: 10px;
+            margin-bottom: 15px;
             cursor: pointer;
             width: 100%;
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            transition: transform 0.2s;
-        }
-        
-        .btn-share-wa:active {
-            transform: scale(0.98);
+            gap: 8px;
         }
 
         .text-backup-card {
@@ -344,7 +262,6 @@
             max-width: 450px;
             margin: 20px auto;
             display: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
             width: 100%;
             box-sizing: border-box;
             border: 1px solid #e2e8f0;
@@ -356,12 +273,12 @@
 <body>
 
     <div class="control-panel">
-        <h2 style="margin: 0 0 5px 0; font-size: 20px; color: var(--nsi-dark-green); font-weight: 800;">NSI Premium Hub</h2>
-        <p style="margin: 0 0 18px 0; font-size: 12px; color: #718096;">ലക്ഷ്വറി സിംഗിൾ പോസ്റ്റർ ജനറേറ്റർ സിസ്റ്റം</p>
-        <button class="btn-generate" onclick="generatePremiumPosters()">✨ പ്രീമിയം പോസ്റ്റർ നിർമ്മിക്കുക</button>
+        <h2 style="margin: 0 0 5px 0; font-size: 20px; color: var(--nsi-dark-green); font-weight: 800;">NSI HD Posters</h2>
+        <p style="margin: 0 0 18px 0; font-size: 12px; color: #718096;">ഒരു പോസ്റ്ററിൽ 15 എണ്ണം വീതമുള്ള മൾട്ടി-പേജ് പ്രൈസ് ലിസ്റ്റ്</p>
+        <button class="btn-generate" onclick="generatePremiumPosters()">✨ പ്രീമിയം പോസ്റ്ററുകൾ ഉണ്ടാക്കുക</button>
     </div>
 
-    <div id="loading" class="loading-status">⏳ ഷീറ്റിൽ നിന്നും പ്രീമിയം പ്രൈസ് ലിസ്റ്റ് ഡാറ്റ ശേഖരിക്കുന്നു...</div>
+    <div id="loading" class="loading-status">⏳ ഷീറ്റിൽ നിന്നും വിവരങ്ങൾ ശേഖരിക്കുന്നു...</div>
 
     <div class="posters-container" id="posters-container"></div>
 
@@ -373,7 +290,6 @@
 
 <script>
     const sheetAppUrl = "https://script.google.com/macros/s/AKfycbyg9RmH2iFblNzWNBBL7J4SR-W003CQnDju8RPoPBINF_cD6Fdidkn7h9QLvMsL8u4z/exec";
-    const shopWebsiteUrl = "https://nsivegetables-coder.github.io/nsi-vegetables-pattambi/";
 
     function generatePremiumPosters() {
         const loading = document.getElementById("loading");
@@ -390,13 +306,8 @@
                 loading.style.display = "none";
                 
                 let rawProducts = [];
-                if (Array.isArray(data)) {
-                    rawProducts = data;
-                } else if (data && Array.isArray(data.data)) {
-                    rawProducts = data.data;
-                } else if (data && typeof data === 'object') {
-                    rawProducts = Object.values(data).find(val => Array.isArray(val)) || [];
-                }
+                if (Array.isArray(data)) { rawProducts = data; }
+                else if (data && Array.isArray(data.data)) { rawProducts = data.data; }
                 
                 let cleanedItems = [];
                 rawProducts.forEach(product => {
@@ -419,123 +330,112 @@
                 }
 
                 const currentDate = new Date().toLocaleDateString('en-IN');
+                const limit = 15;
+                const totalPageCount = Math.ceil(cleanedItems.length / limit);
 
-                let wrapper = document.createElement('div');
-                wrapper.className = 'poster-wrapper';
-                let posterId = `main-full-poster`;
-                
-                let gridCells = "";
-                cleanedItems.forEach((item, index) => {
-                    gridCells += `
-                        <div class="grid-box">
-                            <div class="box-left">
-                                <div class="box-num">${index + 1}</div>
-                                <div class="box-title">${item.name}</div>
-                            </div>
-                            <div class="box-price-tag">
-                                <span class="tag-unit">1 KG</span>
-                                <span class="tag-amount">₹${item.price}</span>
-                            </div>
-                        </div>
-                    `;
-                });
+                for (let page = 0; page < totalPageCount; page++) {
+                    const start = page * limit;
+                    const end = Math.min(start + limit, cleanedItems.length);
+                    const chunk = cleanedItems.slice(start, end);
 
-                wrapper.innerHTML = `
-                    <div class="poster-card" id="${posterId}">
-                        <div class="poster-header">
-                            <div class="logo-area">
+                    let wrapper = document.createElement('div');
+                    wrapper.className = 'poster-wrapper';
+                    let posterId = `poster-page-${page + 1}`;
+                    
+                    let listRows = "";
+                    chunk.forEach((item, index) => {
+                        const serialNumber = start + index + 1;
+                        listRows += `
+                            <div class="item-row">
+                                <div class="box-left">
+                                    <div class="box-num">${serialNumber}</div>
+                                    <div class="box-title">${item.name}</div>
+                                </div>
+                                <div class="box-price-tag">
+                                    <span class="tag-unit">1 KG</span>
+                                    <span class="tag-amount">₹${item.price}</span>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    wrapper.innerHTML = `
+                        <div class="poster-card" id="${posterId}">
+                            <div class="poster-header">
                                 <h1 class="logo-text">NSI FRESH</h1>
                                 <span class="logo-sub">Premium Quality</span>
+                                <div class="divider-gold"></div>
+                                <div class="title-badge">DAILY PRICE LIST</div>
+                                <div class="meta-info">
+                                    <span>📆 Date: ${currentDate}</span>
+                                    <span style="color: var(--nsi-dark-green)">PAGE ${page + 1} of ${totalPageCount}</span>
+                                </div>
                             </div>
-                            <div class="divider-gold"></div>
-                            <div class="banner-tagline">ഏറ്റവും മികച്ച പച്ചക്കറികൾ നിങ്ങളുടെ അടുക്കളയിലേക്ക്</div>
-                            <div class="title-badge">DAILY PRICE LIST</div>
-                            <div class="meta-info">
-                                <span>📆 Date: ${currentDate}</span>
-                                <span style="color: var(--nsi-dark-green)">Total Items: ${cleanedItems.length}</span>
+
+                            <div class="items-list">
+                                ${listRows}
+                            </div>
+
+                            <div class="poster-footer">
+                                <div class="footer-banner-wa">
+                                    🟢 വാട്സാപ്പ് ഓർഡറുകൾക്ക്: <b>+91 90 37 38 39 40</b>
+                                </div>
                             </div>
                         </div>
+                        
+                        <button class="btn-share-wa" onclick="sharePosterToWhatsApp('${posterId}', ${page + 1})">
+                            🟢 പേജ് ${page + 1} വാട്സാപ്പിൽ അയക്കുക
+                        </button>
+                    `;
 
-                        <div class="items-grid">
-                            ${gridCells}
-                        </div>
-
-                        <div class="poster-footer">
-                            <div class="footer-banner-wa">
-                                🟢 വാട്സാപ്പ് വഴി ഓർഡർ ചെയ്യാം: <b>+91 90 37 38 39 40</b>
-                            </div>
-                            <div class="delivery-badges-row">
-                                <span class="badge-premium badge-green">⚡ Fast Delivery</span>
-                                <span class="badge-premium badge-gold">✨ Premium Service</span>
-                            </div>
-                            <div class="guarantee-row">
-                                <span>🌱 100% Freshness</span>
-                                <span>🧼 Hygiene Ensured</span>
-                                <span>🤝 Best Price</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button class="btn-share-wa" onclick="sharePosterToWhatsApp('${posterId}')">
-                        🟢 ഈ പ്രീമിയം പോസ്റ്റർ വാട്സാപ്പിൽ അയക്കുക
-                    </button>
-                `;
-
-                container.appendChild(wrapper);
+                    container.appendChild(wrapper);
+                }
 
                 let broadcastMessage = `🥬 *NSI FRESH & GREEN* 🥬\n📆 വിലവിവരപ്പട്ടിക: ${currentDate}\n\n`;
                 cleanedItems.forEach((item, idx) => {
                     broadcastMessage += `${idx + 1}. ${item.name} ➔ *₹${item.price}/kg*\n`;
                 });
-                broadcastMessage += `\n🛒 വെബ്സൈറ്റ് വഴി എളുപ്പത്തിൽ ഓർഡർ ചെയ്യാൻ:\n👉 ${shopWebsiteUrl}`;
+                broadcastMessage += `\n🛒 ഓർഡറുകൾ വാട്സാപ്പിൽ അയക്കൂ!`;
                 document.getElementById("text-area").value = broadcastMessage;
                 tCard.style.display = "block";
             })
             .catch(error => {
                 loading.style.display = "none";
                 alert("ഡാറ്റ ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല!");
-                console.error(error);
             });
     }
 
-    function sharePosterToWhatsApp(elementId) {
+    function sharePosterToWhatsApp(elementId, pageNum) {
         const element = document.getElementById(elementId);
         const btn = element.nextElementSibling;
         const originalText = btn.innerHTML;
-        btn.innerHTML = "⏳ പ്രീമിയം ഫോട്ടോ നിർമ്മിക്കുന്നു...";
+        btn.innerHTML = "⏳ എച്ച്ഡി ഫോട്ടോ നിർമ്മിക്കുന്നു...";
         btn.disabled = true;
 
         html2canvas(element, {
-            scale: 2.5, // സൂപ്പർ പ്രീമിയം ക്വാളിറ്റിക്ക് വേണ്ടി സ്കെയിൽ കൂട്ടി
+            scale: 3,
             useCORS: true,
             backgroundColor: "#ffffff"
         }).then(canvas => {
             canvas.toBlob(blob => {
-                const file = new File([blob], `NSI_Premium_PriceList.png`, { type: 'image/png' });
+                const file = new File([blob], `NSI_Page_${pageNum}.png`, { type: 'image/png' });
                 
                 if (navigator.canShare && navigator.canShare({ files: [file] })) {
                     navigator.share({
                         files: [file],
-                        title: `NSI Premium Price List`,
-                        text: `NSI Fresh ഇന്നത്തെ പ്രത്യേക വിലവിവരപ്പട്ടിക.\n🛒 ഓൺലൈനായി ഓർഡർ ചെയ്യാൻ: ${shopWebsiteUrl}`
+                        title: `NSI Price List - Page ${pageNum}`,
+                        text: `NSI Fresh ഇന്നത്തെ വിലവിവരപ്പട്ടിക (പേജ് ${pageNum}).`
                     })
-                    .then(() => {
-                        btn.innerHTML = originalText;
-                        btn.disabled = false;
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                        btn.innerHTML = originalText;
-                        btn.disabled = false;
-                    });
+                    .then(() => { btn.innerHTML = originalText; btn.disabled = false; })
+                    .catch((err) => { btn.innerHTML = originalText; btn.disabled = false; });
                 } else {
                     const a = document.createElement('a');
                     a.href = canvas.toDataURL('image/png');
-                    a.download = `NSI_Premium_PriceList.png`;
+                    a.download = `NSI_Page_${pageNum}.png`;
                     a.click();
                     btn.innerHTML = originalText;
                     btn.disabled = false;
-                    alert("പ്രീമിയം പോസ്റ്റർ ഫോണിലേക്ക് സേവ് ആയിട്ടുണ്ട്! ഇത് വാട്സാപ്പിൽ ഷെയർ ചെയ്യാം.");
+                    alert("ഫോട്ടോ ഫോണിലേക്ക് ഡൗൺലോഡ് ആയിട്ടുണ്ട്!");
                 }
             }, 'image/png');
         });
